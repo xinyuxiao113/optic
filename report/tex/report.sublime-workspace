@@ -1,0 +1,629 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"inc",
+				"\\includegraphics"
+			],
+			[
+				"incl",
+				"\\includegraphics"
+			],
+			[
+				"in",
+				"\\includegraphics"
+			],
+			[
+				"non",
+				"\\nonumber"
+			],
+			[
+				"cont",
+				"\\tableofcontents"
+			],
+			[
+				"subsec",
+				"\\subsection{}"
+			],
+			[
+				"sub",
+				"\\subfigure"
+			],
+			[
+				"time",
+				"\\times"
+			],
+			[
+				"times",
+				"\\otimes"
+			],
+			[
+				"no",
+				"\\nopagebreak"
+			],
+			[
+				"app",
+				"\\approx"
+			],
+			[
+				"new",
+				"\\newpage"
+			],
+			[
+				"par",
+				"\\parencite"
+			],
+			[
+				"rg",
+				"\\rightarrow"
+			],
+			[
+				"pre",
+				"\\preceq"
+			],
+			[
+				"suc",
+				"\\succeq"
+			],
+			[
+				"cir",
+				"\\circle"
+			],
+			[
+				"trian",
+				"\\triangleq"
+			],
+			[
+				"ap",
+				"\\approx"
+			],
+			[
+				"frame",
+				"\\frametitle"
+			],
+			[
+				"fram",
+				"\\frametitle"
+			],
+			[
+				"cd",
+				"\\cleardoublepage"
+			],
+			[
+				"part",
+				"\\partial"
+			],
+			[
+				"make",
+				"\\maketitle"
+			],
+			[
+				"L",
+				"\\Longleftarrow"
+			],
+			[
+				"sig",
+				"\\sigma"
+			],
+			[
+				"lab",
+				"\\lambda"
+			],
+			[
+				"li",
+				"\\linewidth"
+			],
+			[
+				"om",
+				"\\omega"
+			],
+			[
+				"left",
+				"\\leftarrow"
+			],
+			[
+				"if",
+				"\\infty"
+			],
+			[
+				"include",
+				"\\includegraphics"
+			],
+			[
+				"sec",
+				"\\section{}"
+			],
+			[
+				"q",
+				"\\quad"
+			],
+			[
+				"right",
+				"\\rightarrow"
+			],
+			[
+				"righ",
+				"\\rightarrow"
+			],
+			[
+				"ri",
+				"\\rightarrow"
+			],
+			[
+				"em",
+				"\\emptyset"
+			],
+			[
+				"muti",
+				"\\multiput"
+			],
+			[
+				"Le",
+				"\\leftarrow"
+			],
+			[
+				"ve",
+				"\\vector"
+			],
+			[
+				"R",
+				"\\Rightarrow"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C Single File.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				]
+			],
+			[
+				"Packages/LaTeXTools/LaTeX.sublime-build",
+				"PdfLaTeX"
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/User/C++.sublime-build",
+					""
+				],
+				[
+					"Packages/User/C++.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/User/C++.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/User/untitled.sublime-build",
+					""
+				],
+				[
+					"Packages/User/untitled.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/User/untitled.sublime-build",
+					"Debug"
+				]
+			],
+			[
+				"Packages/User/untitled.sublime-build",
+				"Debug"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"Build: New Build System"
+			],
+			[
+				"Install Pa",
+				"Package Control: Install Package"
+			],
+			[
+				"InstallPackage",
+				"Package Control: Install Package"
+			],
+			[
+				"Install ",
+				"Package Control: Install Package"
+			],
+			[
+				"Install Package",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 150.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/xinyu/Desktop/report/2021-0421 Shannon Limit/doc/mybib.bib",
+		"/Users/xinyu/Desktop/report/2021-0421 Shannon Limit/doc/Appendix.tex",
+		"/Users/xinyu/Desktop/report/2021-0421 Shannon Limit/doc/chapter2.tex",
+		"/Users/xinyu/Desktop/report/2021-0421 Shannon Limit/doc/chapter1.tex",
+		"/Users/xinyu/Desktop/report/2021-0421 Shannon Limit/doc/report.tex",
+		"/Users/xinyu/Desktop/report/2021-0331/mybib.bib",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Image_science/final_project_2001110035_2001110031_肖新宇_李卓远/doc/tex/main.tex",
+		"/Users/xinyu/Desktop/report/2021-0428 fiber optic (3)/report.tex",
+		"/Users/xinyu/Desktop/report/2021-0331/report.tex",
+		"/Users/xinyu/Desktop/2021Spring/CFD/Hw3/report.tex",
+		"/Users/xinyu/Desktop/2021Spring/Spectral method/Hw1/Hw1.tex",
+		"/Users/xinyu/Desktop/2021Spring/CFD/Hw1/report1.tex",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/NPDE/report4/report4.tex",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/NPDE/report4/report4.log",
+		"/Users/xinyu/Desktop/2020Autumn/Statistical_Computing/HW4/hw4.tex",
+		"/Users/xinyu/Desktop/2020Autumn/NPDE/report3/report3.tex",
+		"/Users/xinyu/Desktop/2020Autumn/NPDE/report3/report1.tex",
+		"/Users/xinyu/Desktop/2020Autumn/Image_science/hw4_2001110035_肖新宇/doc/hw4.tex",
+		"/Users/xinyu/Desktop/2020Autumn/Image_science/hw5_2001110035_肖新宇/doc/hw4.tex",
+		"/Users/xinyu/Desktop/2020Autumn/Statistical_Computing/HW3/hw3.tex",
+		"/Users/xinyu/Desktop/report/8.28 fiber/report.tex",
+		"/Users/xinyu/Desktop/report/11.7  fiber/report.tex",
+		"/Users/xinyu/Desktop/report/11.24 华为/report.tex",
+		"/Users/xinyu/Desktop/code/c++/FFT/FFT/main.cpp",
+		"/Users/xinyu/Desktop/2020Autumn/Optimal/2001110035_肖新宇_hw2/doc/HW2.tex",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/NPDE/report2/report1.tex",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Image_science/hw4_2001110035_肖新宇/doc/hw4.tex",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Statistical_Computing/HW3/hw3.tex",
+		"/var/folders/lx/pn32t35562q_d2fbchp2r8wm0000gn/T/TemporaryItems/（screencaptureui正在存储文稿）/截屏2020-12-05 上午11.27.49.png",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Statistical_Computing/HW3/hw2.tex",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Image_science/hw3_2001110035_肖新宇/doc/hw3.tex",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Optimal/HW1/HW1.tex",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Statistical_Computing/HW2/doc/hw2.tex",
+		"/Users/xinyu/Desktop/report/10.24/report.tex",
+		"/Users/xinyu/Desktop/report/F-principle/report.tex",
+		"/Users/xinyu/Desktop/report/8.28/report.tex",
+		"/Users/xinyu/Desktop/report/11.7/report.tex",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Statistical_Computing/HW1/Hw1.tex",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Image_science/Hw1/hw1.tex",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Image_science/Hw2/hw2.tex",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Statistical_Computing/HW2/doc/hw2.tez",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Statistical_Computing/HW1/HW1.tex",
+		"/Users/xinyu/Desktop/Image_HW/Readme.txt",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Statistical Models and Computing Method/HW1/HW1.tex",
+		"/Users/xinyu/Desktop/Hw1/code/Readme.txt",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Statistical Models and Computing Method/HW1/code/MLE.ipynb",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/NPDE/report1/report1.tex",
+		"/Users/xinyu/Desktop/未命名文件夹/Code/ReadMe.txt",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/NPDE/report1/report1",
+		"/Users/xinyu/Desktop/Courses/2020 Autumn/Statistical Models and Computing Method/HW1/HW1.tex",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Optimal/HW1.bib",
+		"/Users/xinyu/Desktop/Courses/2020Autumn/Optimal/HW1.tex",
+		"/Users/xinyu/Desktop/Courses/2020 Autumn/Optimal/HW1.tex",
+		"/Users/xinyu/Desktop/report/MZ/report.tex",
+		"/Users/xinyu/Desktop/report/8.28/report.bib",
+		"/Users/xinyu/Desktop/2020 Autumn/Statistical Models and Computing Method/HW1/copy.tex",
+		"/Users/xinyu/Desktop/2020 Autumn/Statistical Models and Computing Method/HW1/HW1.tex",
+		"/Users/xinyu/Desktop/2020 Autumn/Statistical Models and Computing Method/HW1/report.tex",
+		"/Users/xinyu/Desktop/test/test.tex",
+		"/Users/xinyu/Desktop/test/test.text",
+		"/Users/xinyu/Desktop/report/9.28/report.tex",
+		"/Users/xinyu/Desktop/2020 Autumn/NMPDE/HW1/HW1.tex",
+		"/Users/xinyu/Desktop/report/8.28/report.log",
+		"/Users/xinyu/Desktop/2020Spring/Big data analysis/project/doc/final.tex",
+		"/Users/xinyu/Desktop/2020Spring/Big data analysis/hw4/hw4.tex",
+		"/Users/xinyu/Desktop/2020Spring/Big data analysis/project/doc/hw4.tex",
+		"/Users/xinyu/Desktop/pkuthss-master/doc/readme/chap/pkuthss-abs.tex",
+		"/Users/xinyu/Desktop/pkuthss-master/doc/readme/chap/pkuthss-ack.tex",
+		"/Users/xinyu/Desktop/pkuthss-master/doc/readme/chap/pkuthss-encl1.tex",
+		"/Users/xinyu/Desktop/pkuthss-master/doc/readme/chap/pkuthss-concl.tex",
+		"/Users/xinyu/Desktop/pkuthss-master/doc/readme/chap/pkuthss-intro.tex",
+		"/Users/xinyu/Desktop/2020Spring/毕业论文/NTK.tex",
+		"/Users/xinyu/Desktop/2020Spring/diffrentiable manifolds/hw1.tex",
+		"/Users/xinyu/Desktop/ThesisLatex-master/thesis.tex",
+		"/Users/xinyu/Desktop/ThesisLatex-master/thesis.log",
+		"/Users/xinyu/Desktop/report2/report.tex",
+		"/Users/xinyu/Desktop/2020Spring/Big data analysis/hw5/hw4.tex",
+		"/Users/xinyu/Desktop/2020Spring/Big data analysis/hw2/hw2.tex",
+		"/Users/xinyu/Desktop/2020Spring/Big data analysis/hw3/hw3.tex",
+		"/Users/xinyu/Desktop/report/report.tex",
+		"/Users/xinyu/Desktop/report/report.log",
+		"/Users/xinyu/Desktop/report.tex",
+		"/report.pdf",
+		"/Users/xinyu/Desktop/美赛/论文/MCM.tex",
+		"/Users/xinyu/Desktop/美赛/MCM.tex",
+		"/Users/xinyu/Desktop/2020Spring/Big data analysis/hw1/hw1.tex",
+		"/Users/xinyu/Desktop/2020Spring/Big data analysis/hw1.tex",
+		"/Users/xinyu/Desktop/2019Autumn/Convex-Optimization/l1-hw-1600010724-1217/doc/report.tex",
+		"/Users/xinyu/Desktop/DL/report/report.tex",
+		"/Users/xinyu/Desktop/2019Autumn/parallel-programing/project4/report.tex",
+		"/Users/xinyu/Desktop/ImageScience/homework1/12-16.tex",
+		"/Users/xinyu/Desktop/2019Autumn/Convex-Optimazation/l1-hw-1600010724-1217/code/Test_l1_regularized_problems.m",
+		"/Users/xinyu/Desktop/RL/topic/topic.tex",
+		"/Users/xinyu/Desktop/2019Autumn/Convex-Optimazation/l1-hw-1600010724-1217/doc/report.tex",
+		"/Users/xinyu/Desktop/CVX-final project/TEX/project.tex",
+		"/Users/xinyu/Desktop/RL/TRPO.tex",
+		"/Users/xinyu/Desktop/2019Autumn/Convex-Optimazation/l1-hw-1600010724-1202/doc/report.tex",
+		"/Users/xinyu/Desktop/RL/TRPO",
+		"/Users/xinyu/Desktop/2019秋季/parallel-programing/HW3/hw3.tex",
+		"/Users/xinyu/Desktop/2019秋季/凸优化/mm/report.tex",
+		"/Users/xinyu/Desktop/2019秋季/凸优化/project1/report.tex",
+		"/Users/xinyu/Desktop/2019秋季/凸优化/凸优化2/optimazation2.tex",
+		"/Users/xinyu/Desktop/parallel-programming-HW2/Makefile",
+		"/Users/xinyu/Desktop/parallel-programming-HW2/run.slurm",
+		"/Users/xinyu/Desktop/PDE/PDE HW00/PDE3.tex",
+		"/Users/xinyu/Desktop/PDE/PDE HW3/PDE3.tex",
+		"/Users/xinyu/Desktop/PDE /PDE HW3/PDE3.tex",
+		"/Users/xinyu/Desktop/凸优化/凸优化2/optimazation2.tex",
+		"/Users/xinyu/Desktop/tf-tutorials-master0/01-svhn/model.py",
+		"/Users/xinyu/Desktop/mpi-ex2/mpi_chuanhua.c",
+		"/Users/xinyu/Desktop/凸优化/凸优化1/Optimization1.tex",
+		"/Users/xinyu/Desktop/Reinforcement-learning-with-tensorflow-master/contents/12_Proximal_Policy_Optimization/simply_PPO.py",
+		"/Users/xinyu/Desktop/Reinforcement-learning-with-tensorflow-master 2/contents/12_Proximal_Policy_Optimization/DPPO.py",
+		"/Users/xinyu/Desktop/Reinforcement-learning-with-tensorflow-master 2/experiments/2D_car/DDPG.py",
+		"/Users/xinyu/Desktop/Reinforcement-learning-with-tensorflow-master/contents/7_Policy_gradient_softmax/RL_brain.py",
+		"/Users/xinyu/Desktop/python/RL_test.py",
+		"/Users/xinyu/Desktop/RL_test.py",
+		"/Users/xinyu/Library/Application Support/Sublime Text 3/Packages/User/mypython.sublime-build",
+		"/Users/xinyu/Desktop/hello.cpp",
+		"/Users/xinyu/Desktop/PDE /PDE数值解 书面1/PDE1.tex",
+		"/Users/xinyu/Desktop/MPI /test_MPI",
+		"/Users/xinyu/Desktop/MPI /::test:MPI",
+		"/Users/xinyu/Desktop/loveweiying.cpp",
+		"/Users/xinyu/Library/Application Support/Sublime Text 3/Packages/User/C++.sublime-build",
+		"/Users/xinyu/Library/Application Support/Sublime Text 3/Packages/User/C-C++.sublime-build",
+		"/Users/xinyu/Library/Application Support/Sublime Text 3/Packages/User/C:C++.sublime-build",
+		"/Users/xinyu/Library/Application Support/Sublime Text 3/Packages/User/untitled.sublime-build",
+		"/Users/xinyu/Desktop/loveweiying"
+	],
+	"find":
+	{
+		"height": 0.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 266.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.latextools":
+	{
+		"height": 249.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 126.0
+	},
+	"pinned_build_system": "Packages/LaTeXTools/LaTeX.sublime-build",
+	"project": "report.sublime-project",
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"#include<iostream>"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": false,
+	"template_settings":
+	{
+	}
+}

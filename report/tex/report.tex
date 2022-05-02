@@ -1,0 +1,55 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{CJKutf8}
+\usepackage{url}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{overpic}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage[noend]{algpseudocode}
+\usepackage{algorithmicx,algorithm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,
+            linkcolor=blue,
+            anchorcolor=blue,
+            citecolor=blue}
+\usepackage{biblatex}
+\addbibresource{mybib.bib}
+\renewcommand{\baselinestretch}{1.2}
+\setcounter{page}{1}
+\geometry{left=2.0cm, right=2.0cm, top=1cm, bottom=1.5cm}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{lemma}{Lemma}[section]
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+\title{Nonlinar compensation algorithm for WDM system in optical fiber}
+\author{Xinyu Xiao, Bin Dong, Zhennan Zhou} 
+\maketitle
+\tableofcontents
+
+\begin{abstract}
+In long-haul optical communication systems, compensating nonlinear effects through digital signal processing (DSP) 
+is difficult due to intractable interactions between Kerr nonlinearity, chromatic dispersion (CD) and amplified 
+spontaneous emission (ASE) noise from inline amplifiers. We constructed a pytorch-based optical fiber communication 
+system including Tra  nsmitter, fiber channel model and receiver. We design some 
+digital back propagation models and test their performence. We get some improvements
+compared with some latest work.
+\end{abstract}
+
+\include{chapter1}
+\include{chapter2}
+\include{basics}
+
+
+\newpage
+\printbibliography{}
+\end{CJK}
+\end{document}

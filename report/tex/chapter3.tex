@@ -1,0 +1,96 @@
+\section{Higher order Pertubation Theory}
+The initial data for (\ref{model}):
+$$
+u(0, t)=\sum_{k} a_{k} g(z, t-k T)+\sum_{k} b_{k} e^{-i \Omega t} g\left(z, t-k T\right)
+$$
+where $g(t)$ is a pulse function, $a_k$ and $b_k$ are complex symbols.\\
+The integral equation of (\ref{model}):
+\begin{equation}
+u(z,t) = exp(zD)u(0,t) +  i\gamma\int_{0}^{z} \exp((z-s) D)\circ \left(|u(s,t)|^2u(s,t)\right) f(s) ds
+\end{equation}
+Regular pertubation:
+\begin{equation}
+u(z,t) = \sum_{k=0}^{\infty} \gamma^k u_k(z,t)
+\end{equation}
+\textbf{The zero order solution:}
+\begin{equation}\label{u0}
+\begin{aligned}
+u_0(z, t) &= exp(zD)u(0,t) \\
+ &= \sum_{k} a_{k} g_{0}(z, t-k T)+\sum_{k} b_{k} e^{-i \Omega t+i \frac{\beta_2 \Omega^{2}}{2} z} g_{0}\left(z, t-k T-\beta_2 \Omega z\right) 
+\end{aligned}
+\end{equation}
+where $g_0(z,t) = exp(zD)\circ g(t)$.\\
+\textbf{The fisrt order pertubation:}
+\begin{align*}
+u_1(z,t) = i\int_{0}^{z} \exp((z-s) D)\circ \left(|u_0(s,t)|^2u_0(s,t)\right) f(s) ds
+\end{align*}
+Two approach for high order pertubation:
+\begin{itemize}
+\item Fix point iteration: Set $v_0 = u_0$
+\begin{equation}\label{Fix point iteration}
+v_{k+1}(z,t) = u_0(z,t) + i\gamma \int_{0}^{z}\exp((z-s) D)\circ \left(|v_k(s,t)|^2v_k(s,t)\right) f(s) ds
+\end{equation}
+\item Compare the same order term w.r.t $\gamma$.
+\begin{align}\label{RP}
+&\sum_{k} \gamma^k u_k = u_0 + i\sum_{m,n,p}\gamma^{m+n+p+1}\int_{0}^{z}\exp\left((z-s)D\right)\circ (u_mu_n^{*}u_p) f(s) ds\\
+&\Rightarrow u_{k+1} = i\sum_{m+n+p=k}\int_{0}^{z}\exp\left((z-s)D\right)\circ (u_mu_n^{*}u_p) f(s) ds
+\end{align}
+\end{itemize}
+These two method is equivlent if we neglect high order term w.r.t $\gamma$.More precisely, we have relationship:
+$$
+\frac{1}{k!}\frac{\partial v_n}{\partial \gamma^k}\Big|_{\gamma=0} = u_k(z,t), 1\leq k\leq n
+$$
+which can conduce that:
+$$
+v_n = \sum_{k=0}^{n} \gamma^k u_k + O(\gamma^{n+1})
+$$
+Use mathmatical induction, one can show that
+\begin{equation}
+u_k(z,t) = \sum_{m} A_{m} g_k^{m}(z,t) 
+\end{equation}
+where $A_m$ is $2n+1$ term product of $\{a_i,b_i\}$.
+
+\textbf{Receiver side:}
+We assume that we can choose a matched filter: $h_f(t) = g_0(z,t)$.
+\begin{align*}
+\hat{a}_0 &= \int_{-\infty}^{\infty} u(z,t)h(t)^*dt \\
+&=\sum_{k=0}^{+\infty} \gamma^k \int_{-\infty}^{\infty} u_k(z,t)h(t)^*dt\\
+&=\sum_{k=0}^{+\infty} \gamma^k <u_k(z,t),h(t)>
+\end{align*}
+$\exp(zD)^{*} = \exp(-zD)$, the orthogonal property of $g(0,t-kT)$ and $e^{-i \Omega t} g\left(z, t-k T\right)$ is preserved. Use the expression (\ref{u0})
+$$
+<u_0(z,t),h> = \int_{-\infty}^{+\infty} u_0(z,t)h(t)^* dt= a_0
+$$
+\begin{align*}
+<u_{k+1}(z,t),h> &= i\gamma \sum_{m+n+p=k} \int_{0}^{z} f(s)ds<\exp\left( (z-s)D \right)(u_mu_n^*u_p),g_0(z,t)> \\
+& = i\gamma \sum_{m+n+p=k} \int_{0}^{z} f(s)ds<(u_mu_n^*u_p),g_0(s,t)> 
+\end{align*}
+The 1-order nonlinear pertuabtion:
+\begin{align*}
+<u_{1}(z,t),h> &= i\gamma  \int_{0}^{z} f(s)ds<u_0u_0^*u_0,g_0(s,t)> \\
+&= i \gamma \sum_{h, k, m}\left(a_{h} a_{k}^{*} a_{m} S_{h, k, m}+2 a_{h} b_{k}^{*} b_{m} X_{h, k, m}\right)
+\end{align*}
+where
+$$
+S_{h, k, m}=\int_{0}^{z} \mathrm{~d} s f(s) \int  g_0^*(s, t) g_0(s, t-h T) g_0^{*}(s, t-k T) g_0(s, t-m T) \mathrm{d} t
+$$
+
+$$
+\begin{aligned}
+X_{h, k, m}=& \int_{0}^{z} \mathrm{~d} s f(s) \int \mathrm{d} t g_0^*(s, t) g_0(s, t-h T) 
+ g_0^*\left(s, t-k T-\beta_2 \Omega s\right) g_0\left(s, t-m T-\beta_2 \Omega s\right)
+\end{aligned}
+$$
+Other term are neglected because of $\exp(-\Omega t)$.
+
+
+
+
+
+
+
+
+
+
+
+

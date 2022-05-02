@@ -1,0 +1,85 @@
+\section{Digital Signal Processing Basics}
+
+\subsection{Polarization model dispersion}
+Basic relationships in vacuum:
+\begin{equation}
+\lambda f = c, \omega = 2\pi f, k = \frac{2\pi}{\lambda} = \frac{\omega}{c}
+\end{equation}
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{lll}
+    physic        & variable  & unit \\
+    \hline
+    wave length   & $\lambda$ &  [m]  \\
+    \hline
+    frequency    &  f         & Hz \\ 
+    \hline
+    angular frequency & $\omega$ & [rads/s] \\
+    \hline
+    wave number    &   k        &  [rads/m] \\
+    \hline
+    \end{tabular}
+    \caption{physical variable}
+    \label{physical variable}
+\end{table}
+When a beam of light goes into fiber, its frequency remains the same, wavelength changes, then its velocity 
+changes.
+$$
+v(\omega) = \frac{c}{n(\omega)}
+$$
+\begin{equation}
+\lambda f = v(\omega), \omega = 2\pi f, \beta = \frac{2\pi}{\lambda} = \frac{\omega}{v(\omega)} = \frac{n(\omega)\omega}{c}
+\end{equation}
+
+In real fibers, small departures from cylindrical symmetry, 
+occurring because of random variations in the core shape along the fiber length, 
+result in a mixing of the two polarization states by breaking the mode degeneracy.
+Mathematically, the mode-propagation constant $\beta$ becomes slightly different for the modes polarized in the x and
+y directions.  This property is referred to as modal birefringence.  The strength of modal
+birefringence is defined by a dimensionless parameter.
+$$
+B_{m}=\frac{\left|\beta_{x}-\beta_{\gamma}\right|}{k_{0}}=\left|n_{x}-n_{\gamma}\right|
+$$
+beat length:
+$$
+L_{B}=\frac{2 \pi}{\left|\beta_{x}-\beta_{y}\right|}=\frac{\lambda}{B_{m}}
+$$
+
+
+\subsection{Coherent detection}
+We use a electronic field to describe light:
+$$
+\mathbf{E}(z, t)=\mathbf{E}_{0} e^{i(k z-2 \pi f t)}=\left(\hat{x} E_{0 x}+\hat{y} E_{0 u}\right) e^{i(k z-2 \pi f t)}
+$$
+We use a Jones vector to describe a polarization state of light.
+
+We consider Homodyne Receiver
+$$
+E_s(t) = A_s(t) exp(j\omega_s t)
+$$
+
+\subsection{Adaptive filter theory}
+
+
+
+Some DSP techniques need to learn:
+\begin{itemize}
+    \item Coherent receiver
+    \item FDBP (filter DBP)
+    \item FOE (Frequency offset estimater)
+    \item BPM (Batch power normalization)
+    \item MIMO (Multi Input Multi Output)
+    \item CPE (carrier phase estimator)
+\end{itemize}
+
+Problems to derive:
+\begin{itemize}
+    \item NLSE -- CNLSE
+\end{itemize}
+
+
+\section{Jax Programming}
+
+
+
+
