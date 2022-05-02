@@ -1,0 +1,148 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{fan2020NC}{article}{}
+      \name{author}{5}{}{%
+        {{hash=57d62155c94d925a571c19c3b18ce2eb}{%
+           family={Fan},
+           familyi={F\bibinitperiod},
+           given={Qirui},
+           giveni={Q\bibinitperiod}}}%
+        {{hash=aeb12fa1d619ea09de548f049e0b8641}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Gai},
+           giveni={G\bibinitperiod}}}%
+        {{hash=b25a5d5a8d6747402f334b2819331749}{%
+           family={Gui},
+           familyi={G\bibinitperiod},
+           given={Tao},
+           giveni={T\bibinitperiod}}}%
+        {{hash=08e0e36fa0c5c1155be48190e84829a7}{%
+           family={Lu},
+           familyi={L\bibinitperiod},
+           given={Chao},
+           giveni={C\bibinitperiod}}}%
+        {{hash=9306f644c54f9efc4c18ab2ef63726fe}{%
+           family={Lau},
+           familyi={L\bibinitperiod},
+           given={Alan\bibnamedelimb Pak\bibnamedelima Tao},
+           giveni={A\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Nature Publishing Group}%
+      }
+      \strng{namehash}{b32e0921b2bab0a13a77e5723481f641}
+      \strng{fullhash}{677900b37c986fa85ad8092b67b801af}
+      \strng{bibnamehash}{b32e0921b2bab0a13a77e5723481f641}
+      \strng{authorbibnamehash}{b32e0921b2bab0a13a77e5723481f641}
+      \strng{authornamehash}{b32e0921b2bab0a13a77e5723481f641}
+      \strng{authorfullhash}{677900b37c986fa85ad8092b67b801af}
+      \field{sortinit}{F}
+      \field{sortinithash}{669c706c6f1fbf3b5a83d26f1d9e9e72}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature Communications}
+      \field{number}{1}
+      \field{title}{Advancing theoretical understanding and practical performance of signal processing for nonlinear optical communications through machine learning}
+      \field{volume}{11}
+      \field{year}{2020}
+      \field{pages}{1\bibrangedash 11}
+      \range{pages}{11}
+    \endentry
+    \entry{hager2020}{article}{}
+      \name{author}{2}{}{%
+        {{hash=0b71807dd130a93ef8993612fb2554fb}{%
+           family={H{ä}ger},
+           familyi={H\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod}}}%
+        {{hash=98fe1e0ae06b9f95e2a98feb6ecf5940}{%
+           family={Pfister},
+           familyi={P\bibinitperiod},
+           given={Henry\bibnamedelima D},
+           giveni={H\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{b0560f68f43394ad7dc1d7ac79b074fc}
+      \strng{fullhash}{b0560f68f43394ad7dc1d7ac79b074fc}
+      \strng{bibnamehash}{b0560f68f43394ad7dc1d7ac79b074fc}
+      \strng{authorbibnamehash}{b0560f68f43394ad7dc1d7ac79b074fc}
+      \strng{authornamehash}{b0560f68f43394ad7dc1d7ac79b074fc}
+      \strng{authorfullhash}{b0560f68f43394ad7dc1d7ac79b074fc}
+      \field{sortinit}{H}
+      \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Journal on Selected Areas in Communications}
+      \field{number}{1}
+      \field{title}{Physics-based deep learning for fiber-optic communication systems}
+      \field{volume}{39}
+      \field{year}{2020}
+      \field{pages}{280\bibrangedash 294}
+      \range{pages}{15}
+    \endentry
+    \entry{path_int}{article}{}
+      \name{author}{2}{}{%
+        {{hash=9d7b5077a02c28374ad7313e7cacfe19}{%
+           family={Reznichenko},
+           familyi={R\bibinitperiod},
+           given={Aleksei\bibnamedelima V.},
+           giveni={A\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+        {{hash=7b5aff2ca1928c893c9e5e21ba2ad1d6}{%
+           family={Terekhov},
+           familyi={T\bibinitperiod},
+           given={Ivan\bibnamedelima S.},
+           giveni={I\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{e35c54adaeb0f854e01e04882bab6a35}
+      \strng{fullhash}{e35c54adaeb0f854e01e04882bab6a35}
+      \strng{bibnamehash}{e35c54adaeb0f854e01e04882bab6a35}
+      \strng{authorbibnamehash}{e35c54adaeb0f854e01e04882bab6a35}
+      \strng{authornamehash}{e35c54adaeb0f854e01e04882bab6a35}
+      \strng{authorfullhash}{e35c54adaeb0f854e01e04882bab6a35}
+      \field{sortinit}{R}
+      \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In the present paper we summarize the methods and results of calculations for the theoretical informational quantities obtained in our works for the nondispersive optical fiber channel. We considered two models: the per-sample model and the model where the input signal depends on time. For these models we found the approach for the calculation of the mutual information exactly in the nonlinearity parameter but for the large signal-to-noise power ratio. Using this approach for the per-sample model we found the lower bound of the channel capacity in the intermediate power range.}
+      \field{issn}{1099-4300}
+      \field{journaltitle}{Entropy}
+      \field{number}{6}
+      \field{title}{Path Integral Approach to Nondispersive Optical Fiber Communication Channel}
+      \field{volume}{22}
+      \field{year}{2020}
+      \verb{doi}
+      \verb 10.3390/e22060607
+      \endverb
+      \verb{urlraw}
+      \verb https://www.mdpi.com/1099-4300/22/6/607
+      \endverb
+      \verb{url}
+      \verb https://www.mdpi.com/1099-4300/22/6/607
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

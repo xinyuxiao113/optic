@@ -1,0 +1,1003 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.1.2)  19 MAR 2022 14:18
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**/Users/xinyu/Desktop/WDM_Code/report/report.tex
+(/Users/xinyu/Desktop/WDM_Code/report/report.tex
+LaTeX2e <2018-04-01> patch level 2
+Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/cjk/texinput/CJKutf8.sty
+Package: CJKutf8 2015/04/18 4.8.4
+ (/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2018/04/06 v1.3b Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/cjk/texinput/CJK.sty
+Package: CJK 2015/04/18 4.8.4
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/cjk/texinput/mule/MULEenc.sty
+Package: MULEenc 2015/04/18 4.8.4
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/cjk/texinput/CJK.enc
+File: CJK.enc 2015/04/18 4.8.4
+Now handling font encoding C00 ...
+... no UTF-8 mapping file for font encoding C00
+Now handling font encoding C05 ...
+... no UTF-8 mapping file for font encoding C05
+Now handling font encoding C09 ...
+... no UTF-8 mapping file for font encoding C09
+Now handling font encoding C10 ...
+... no UTF-8 mapping file for font encoding C10
+Now handling font encoding C20 ...
+... no UTF-8 mapping file for font encoding C20
+Now handling font encoding C19 ...
+... no UTF-8 mapping file for font encoding C19
+Now handling font encoding C40 ...
+... no UTF-8 mapping file for font encoding C40
+Now handling font encoding C42 ...
+... no UTF-8 mapping file for font encoding C42
+Now handling font encoding C43 ...
+... no UTF-8 mapping file for font encoding C43
+Now handling font encoding C50 ...
+... no UTF-8 mapping file for font encoding C50
+Now handling font encoding C52 ...
+... no UTF-8 mapping file for font encoding C52
+Now handling font encoding C49 ...
+... no UTF-8 mapping file for font encoding C49
+Now handling font encoding C60 ...
+... no UTF-8 mapping file for font encoding C60
+Now handling font encoding C61 ...
+... no UTF-8 mapping file for font encoding C61
+Now handling font encoding C63 ...
+... no UTF-8 mapping file for font encoding C63
+Now handling font encoding C64 ...
+... no UTF-8 mapping file for font encoding C64
+Now handling font encoding C65 ...
+... no UTF-8 mapping file for font encoding C65
+Now handling font encoding C70 ...
+... no UTF-8 mapping file for font encoding C70
+Now handling font encoding C31 ...
+... no UTF-8 mapping file for font encoding C31
+Now handling font encoding C32 ...
+... no UTF-8 mapping file for font encoding C32
+Now handling font encoding C33 ...
+... no UTF-8 mapping file for font encoding C33
+Now handling font encoding C34 ...
+... no UTF-8 mapping file for font encoding C34
+Now handling font encoding C35 ...
+... no UTF-8 mapping file for font encoding C35
+Now handling font encoding C36 ...
+... no UTF-8 mapping file for font encoding C36
+Now handling font encoding C37 ...
+... no UTF-8 mapping file for font encoding C37
+Now handling font encoding C80 ...
+... no UTF-8 mapping file for font encoding C80
+Now handling font encoding C81 ...
+... no UTF-8 mapping file for font encoding C81
+Now handling font encoding C01 ...
+... no UTF-8 mapping file for font encoding C01
+Now handling font encoding C11 ...
+... no UTF-8 mapping file for font encoding C11
+Now handling font encoding C21 ...
+... no UTF-8 mapping file for font encoding C21
+Now handling font encoding C41 ...
+... no UTF-8 mapping file for font encoding C41
+Now handling font encoding C62 ...
+... no UTF-8 mapping file for font encoding C62
+)
+LaTeX Info: Redefining \selectfont on input line 755.
+\CJK@indent=\box26
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
+)) (/usr/local/texlive/2018/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+\captionmargin=\dimen103
+\captionmargin@=\dimen104
+\captionwidth=\dimen105
+\caption@tempdima=\dimen106
+\caption@indent=\dimen107
+\caption@parindent=\dimen108
+\caption@hangindent=\dimen109
+)
+\c@ContinuedFloat=\count88
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen110
+\Gin@req@width=\dimen111
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/subfigure/subfigure.sty
+Package: subfigure 2002/03/15 v2.1.5 subfigure package
+\subfigtopskip=\skip43
+\subfigcapskip=\skip44
+\subfigcaptopadj=\dimen112
+\subfigbottomskip=\skip45
+\subfigcapmargin=\dimen113
+\subfiglabelskip=\skip46
+\c@subfigure=\count89
+\c@lofdepth=\count90
+\c@subtable=\count91
+\c@lotdepth=\count92
+
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+(/usr/local/texlive/2018/texmf-dist/tex/latex/subfigure/subfigure.cfg)
+\subfig@top=\skip47
+\subfig@bottom=\skip48
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2017/09/02 v2.17a AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks17
+\ex@=\dimen114
+)) (/usr/local/texlive/2018/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen115
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count93
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count94
+\leftroot@=\count95
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count96
+\DOTSCASE@=\count97
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box27
+\strutbox@=\box28
+\big@size=\dimen116
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count98
+\c@MaxMatrixCols=\count99
+\dotsspace@=\muskip11
+\c@parentequation=\count100
+\dspbrk@lvl=\count101
+\tag@help=\toks18
+\row@=\count102
+\column@=\count103
+\maxfields@=\count104
+\andhelp@=\toks19
+\eqnshift@=\dimen117
+\alignsep@=\dimen118
+\tagshift@=\dimen119
+\tagwidth@=\dimen120
+\totwidth@=\dimen121
+\lineht@=\dimen122
+\@envbody=\toks20
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (/usr/local/texlive/2018/texmf-dist/tex/latex/overpic/overpic.sty
+Package: overpic 2017/10/06 1.0 picture overlays
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/eepic/epic.sty
+Enhancements to Picture Environment. Version 1.2 - Released June 1, 1986
+\@@multicnt=\count105
+\d@lta=\count106
+\@delta=\dimen123
+\@@delta=\dimen124
+\@gridcnt=\count107
+\@joinkind=\count108
+\@dotgap=\dimen125
+\@ddotgap=\dimen126
+\@x@diff=\count109
+\@y@diff=\count110
+\x@diff=\dimen127
+\y@diff=\dimen128
+\@dotbox=\box29
+\num@segments=\count111
+\num@segmentsi=\count112
+\@datafile=\read1
+)) (/usr/local/texlive/2018/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2011/09/28 v3.5.2 Customized lists
+\labelindent=\skip52
+\enit@outerparindent=\dimen129
+\enit@toks=\toks22
+\enit@inbox=\box30
+\enitdp@description=\count113
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2017/10/31 v2.20.4
+\thm@style=\toks23
+\thm@bodyfont=\toks24
+\thm@headfont=\toks25
+\thm@notefont=\toks26
+\thm@headpunct=\toks27
+\thm@preskip=\skip53
+\thm@postskip=\skip54
+\thm@headsep=\skip55
+\dth@everypar=\toks28
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2018/03/24 v5.7 Page Geometry
+ (/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+) (/usr/local/texlive/2018/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count114
+\Gm@cntv=\count115
+\c@Gm@tempcnt=\count116
+\Gm@bindingoffset=\dimen130
+\Gm@wd@mp=\dimen131
+\Gm@odd@mp=\dimen132
+\Gm@even@mp=\dimen133
+\Gm@layoutwidth=\dimen134
+\Gm@layoutheight=\dimen135
+\Gm@layouthoffset=\dimen136
+\Gm@layoutvoffset=\dimen137
+\Gm@dimlist=\toks29
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count117
+\c@ALG@rem=\count118
+\c@ALG@nested=\count119
+\ALG@tlm=\skip56
+\ALG@thistlm=\skip57
+\c@ALG@Lnr=\count120
+\c@ALG@blocknr=\count121
+\c@ALG@storecount=\count122
+\c@ALG@tmpcounter=\count123
+\ALG@tmplength=\skip58
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count124
+\float@exts=\toks30
+\float@box=\box31
+\@float@everytoks=\toks31
+\@floatcapt=\box32
+)
+\@float@every@algorithm=\toks32
+\c@algorithm=\count125
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2018/02/06 v6.86b Hypertext links for LaTeX
+ (/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
+ (/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package hobsub Info: Skipping package `ifvtex' (already loaded).
+Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
+Package hobsub Info: Skipping package `ifpdf' (already loaded).
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+Package: pdftexcmds 2018/01/30 v0.27 Utility functions of pdfTeX for LuaTeX (HO)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO)
+Package: bitset 2016/05/16 v1.2 Handle bit-vector datatype (HO)
+Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2016/05/16 v1.5 Let assignment for LaTeX macros (HO)
+Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
+Package: xcolor-patch 2016/05/16 xcolor patch
+Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
+Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
+Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+)
+\@linkdim=\dimen138
+\Hy@linkcounter=\count126
+\Hy@pagecounter=\count127
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2018/02/06 v6.86b Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+\Hy@SavedSpaceFactor=\count128
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 4509.
+Package hyperref Info: Link nesting OFF on input line 4514.
+Package hyperref Info: Hyper index ON on input line 4517.
+Package hyperref Info: Plain pages OFF on input line 4524.
+Package hyperref Info: Backreferencing OFF on input line 4529.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4762.
+\c@Hy@tempcnt=\count129
+LaTeX Info: Redefining \url on input line 5115.
+\XeTeXLinkMargin=\dimen139
+\Fld@menulength=\count130
+\Field@Width=\dimen140
+\Fld@charsize=\dimen141
+Package hyperref Info: Hyper figures OFF on input line 6369.
+Package hyperref Info: Link nesting OFF on input line 6374.
+Package hyperref Info: Hyper index ON on input line 6377.
+Package hyperref Info: backreferencing OFF on input line 6384.
+Package hyperref Info: Link coloring OFF on input line 6389.
+Package hyperref Info: Link coloring with OCG OFF on input line 6394.
+Package hyperref Info: PDF/A mode OFF on input line 6399.
+LaTeX Info: Redefining \ref on input line 6439.
+LaTeX Info: Redefining \pageref on input line 6443.
+\Hy@abspage=\count131
+\c@Item=\count132
+\c@Hfootnote=\count133
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
+\Fld@listcount=\count134
+\c@bookmark@seq@number=\count135
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 282.
+)
+\Hy@SectionHShift=\skip59
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 19.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.sty
+Package: biblatex 2018/03/04 v3.11 programmable bibliographies (PK/MW)
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2018/02/11 v2.5e e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count136
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/logreq/logreq.sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count137
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/logreq/logreq.def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+)) (/usr/local/texlive/2018/texmf-dist/tex/generic/xstring/xstring.sty (/usr/local/texlive/2018/texmf-dist/tex/generic/xstring/xstring.tex
+\@xs@message=\write3
+\integerpart=\count138
+\decimalpart=\count139
+)
+Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
+)
+\c@tabx@nest=\count140
+\c@listtotal=\count141
+\c@listcount=\count142
+\c@liststart=\count143
+\c@liststop=\count144
+\c@citecount=\count145
+\c@citetotal=\count146
+\c@multicitecount=\count147
+\c@multicitetotal=\count148
+\c@instcount=\count149
+\c@maxnames=\count150
+\c@minnames=\count151
+\c@maxitems=\count152
+\c@minitems=\count153
+\c@citecounter=\count154
+\c@savedcitecounter=\count155
+\c@uniquelist=\count156
+\c@uniquename=\count157
+\c@refsection=\count158
+\c@refsegment=\count159
+\c@maxextratitle=\count160
+\c@maxextratitleyear=\count161
+\c@maxextradate=\count162
+\c@maxextraalpha=\count163
+\c@abbrvpenalty=\count164
+\c@highnamepenalty=\count165
+\c@lownamepenalty=\count166
+\c@maxparens=\count167
+\c@parenlevel=\count168
+\blx@tempcnta=\count169
+\blx@tempcntb=\count170
+\blx@tempcntc=\count171
+\blx@maxsection=\count172
+\blx@maxsegment@0=\count173
+\blx@notetype=\count174
+\blx@parenlevel@text=\count175
+\blx@parenlevel@foot=\count176
+\blx@sectionciteorder@0=\count177
+\labelnumberwidth=\skip60
+\labelalphawidth=\skip61
+\biblabelsep=\skip62
+\bibitemsep=\skip63
+\bibnamesep=\skip64
+\bibinitsep=\skip65
+\bibparsep=\skip66
+\bibhang=\skip67
+\blx@bcfin=\read2
+\blx@bcfout=\write4
+\c@mincomprange=\count178
+\c@maxcomprange=\count179
+\c@mincompwidth=\count180
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/blx-dm.def
+File: blx-dm.def 2018/03/04 v3.11 biblatex localization (PK/MW)
+)
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count181
+\c@savedafterword=\count182
+\c@annotator=\count183
+\c@savedannotator=\count184
+\c@author=\count185
+\c@savedauthor=\count186
+\c@bookauthor=\count187
+\c@savedbookauthor=\count188
+\c@commentator=\count189
+\c@savedcommentator=\count190
+\c@editor=\count191
+\c@savededitor=\count192
+\c@editora=\count193
+\c@savededitora=\count194
+\c@editorb=\count195
+\c@savededitorb=\count196
+\c@editorc=\count197
+\c@savededitorc=\count198
+\c@foreword=\count199
+\c@savedforeword=\count266
+\c@holder=\count267
+\c@savedholder=\count268
+\c@introduction=\count269
+\c@savedintroduction=\count270
+\c@namea=\count271
+\c@savednamea=\count272
+\c@nameb=\count273
+\c@savednameb=\count274
+\c@namec=\count275
+\c@savednamec=\count276
+\c@translator=\count277
+\c@savedtranslator=\count278
+\c@shortauthor=\count279
+\c@savedshortauthor=\count280
+\c@shorteditor=\count281
+\c@savedshorteditor=\count282
+\c@labelname=\count283
+\c@savedlabelname=\count284
+\c@institution=\count285
+\c@savedinstitution=\count286
+\c@lista=\count287
+\c@savedlista=\count288
+\c@listb=\count289
+\c@savedlistb=\count290
+\c@listc=\count291
+\c@savedlistc=\count292
+\c@listd=\count293
+\c@savedlistd=\count294
+\c@liste=\count295
+\c@savedliste=\count296
+\c@listf=\count297
+\c@savedlistf=\count298
+\c@location=\count299
+\c@savedlocation=\count300
+\c@organization=\count301
+\c@savedorganization=\count302
+\c@origlocation=\count303
+\c@savedoriglocation=\count304
+\c@origpublisher=\count305
+\c@savedorigpublisher=\count306
+\c@publisher=\count307
+\c@savedpublisher=\count308
+\c@language=\count309
+\c@savedlanguage=\count310
+\c@origlanguage=\count311
+\c@savedoriglanguage=\count312
+\c@pageref=\count313
+\c@savedpageref=\count314
+\shorthandwidth=\skip68
+\shortjournalwidth=\skip69
+\shortserieswidth=\skip70
+\shorttitlewidth=\skip71
+\shortauthorwidth=\skip72
+\shorteditorwidth=\skip73
+\locallabelnumberwidth=\skip74
+\locallabelalphawidth=\skip75
+\localshorthandwidth=\skip76
+\localshortjournalwidth=\skip77
+\localshortserieswidth=\skip78
+\localshorttitlewidth=\skip79
+\localshortauthorwidth=\skip80
+\localshorteditorwidth=\skip81
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/blx-compat.def
+File: blx-compat.def 2018/03/04 v3.11 biblatex compatibility (PK/MW)
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.def
+File: biblatex.def 2018/03/04 v3.11 biblatex compatibility (PK/MW)
+\c@textcitecount=\count315
+\c@textcitetotal=\count316
+\c@textcitemaxnames=\count317
+\c@biburlnumpenalty=\count318
+\c@biburlucpenalty=\count319
+\c@biburllcpenalty=\count320
+\c@smartand=\count321
+)
+Package biblatex Info: Trying to load bibliography style 'numeric'...
+Package biblatex Info: ... file 'numeric.bbx' found.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
+File: numeric.bbx 2018/03/04 v3.11 biblatex bibliography style (PK/MW)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+File: standard.bbx 2018/03/04 v3.11 biblatex bibliography style (PK/MW)
+\c@bbx:relatedcount=\count322
+\c@bbx:relatedtotal=\count323
+))
+Package biblatex Info: Trying to load citation style 'numeric'...
+Package biblatex Info: ... file 'numeric.cbx' found.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx
+File: numeric.cbx 2018/03/04 v3.11 biblatex citation style (PK/MW)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\supercite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.cfg
+File: biblatex.cfg 
+))
+\c@theorem=\count324
+\c@remark=\count325
+\c@definition=\count326
+\c@lemma=\count327
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2018/03/04 v3.11 biblatex localization (PK/MW)
+)
+\@quotelevel=\count328
+\@quotereset=\count329
+ (/Users/xinyu/Desktop/WDM_Code/report/report.aux (/Users/xinyu/Desktop/WDM_Code/report/chapter1.aux) (/Users/xinyu/Desktop/WDM_Code/report/chapter2.aux) (/Users/xinyu/Desktop/WDM_Code/report/basics.aux))
+\openout1 = `report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C00/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C05/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C09/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C10/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C20/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C19/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C40/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C42/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C43/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C50/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C52/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C49/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C60/mj/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C61/mj/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C63/mj/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C64/mj/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C65/mj/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C70/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C31/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C32/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C33/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C34/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C35/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C36/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C37/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C80/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C81/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C01/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C11/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C21/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C41/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for C62/song/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: subfigure package is loaded.
+Package caption Info: End \AtBeginDocument code.
+ (/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count330
+\scratchdimen=\dimen142
+\scratchbox=\box33
+\nofMPsegments=\count331
+\nofMParguments=\count332
+\everyMPshowfont=\toks33
+\MPscratchCnt=\count333
+\MPscratchDim=\dimen143
+\MPnumerator=\count334
+\makeMPintoPDFobject=\count335
+\everyMPtoPDFconversion=\toks34
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 438.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(56.9055pt, 483.69687pt, 56.9055pt)
+* v-part:(T,H,B)=(28.45274pt, 773.91498pt, 42.67912pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=483.69687pt
+* \textheight=773.91498pt
+* \oddsidemargin=-15.36449pt
+* \evensidemargin=-15.36449pt
+* \topmargin=-80.81725pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=57.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+\AtBeginShipoutBox=\box34
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+)
+Package hyperref Info: Link coloring ON on input line 31.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
+ (/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
+)
+\c@section@level=\count336
+)
+LaTeX Info: Redefining \ref on input line 31.
+LaTeX Info: Redefining \pageref on input line 31.
+LaTeX Info: Redefining \nameref on input line 31.
+ (/Users/xinyu/Desktop/WDM_Code/report/report.out) (/Users/xinyu/Desktop/WDM_Code/report/report.out)
+\@outlinefile=\write5
+\openout5 = `report.out'.
+
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout4 = `report.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'report.bbl' found.
+ (/Users/xinyu/Desktop/WDM_Code/report/report.bbl)
+Package biblatex Info: Reference section=0 on input line 31.
+Package biblatex Info: Reference segment=0 on input line 31.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/cjk/texinput/UTF8/UTF8.bdg
+File: UTF8.bdg 2015/04/18 4.8.4
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/cjk/texinput/UTF8/UTF8.enc
+File: UTF8.enc 2015/04/18 4.8.4
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/cjk/texinput/UTF8/UTF8.chr
+File: UTF8.chr 2015/04/18 4.8.4
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 36.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 36.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) (/Users/xinyu/Desktop/WDM_Code/report/report.toc)
+\tf@toc=\write6
+\openout6 = `report.toc'.
+
+ [1
+
+{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+\openout2 = `chapter1.aux'.
+
+ (/Users/xinyu/Desktop/WDM_Code/report/chapter1.tex
+<img/flow-chart.png, id=128, 978.65625pt x 125.46875pt>
+File: img/flow-chart.png Graphic file (type png)
+<use img/flow-chart.png>
+Package pdftex.def Info: img/flow-chart.png  used on input line 22.
+(pdftex.def)             Requested size: 483.69687pt x 62.01244pt.
+<img/4QAM.png, id=133, 220.825pt x 228.855pt>
+File: img/4QAM.png Graphic file (type png)
+<use img/4QAM.png>
+Package pdftex.def Info: img/4QAM.png  used on input line 64.
+(pdftex.def)             Requested size: 96.73788pt x 100.2565pt.
+ [2
+
+ </Users/xinyu/Desktop/WDM_Code/report/img/flow-chart.png>]
+<img/rc_t.png, id=156, 310.15875pt x 208.78pt>
+File: img/rc_t.png Graphic file (type png)
+<use img/rc_t.png>
+Package pdftex.def Info: img/rc_t.png  used on input line 77.
+(pdftex.def)             Requested size: 145.11053pt x 97.67741pt.
+<img/rc_f.png, id=157, 313.17pt x 205.76875pt>
+File: img/rc_f.png Graphic file (type png)
+<use img/rc_f.png>
+Package pdftex.def Info: img/rc_f.png  used on input line 78.
+(pdftex.def)             Requested size: 145.11053pt x 95.34865pt.
+ [3 </Users/xinyu/Desktop/WDM_Code/report/img/4QAM.png> </Users/xinyu/Desktop/WDM_Code/report/img/rc_t.png> </Users/xinyu/Desktop/WDM_Code/report/img/rc_f.png>]
+<img/SSFM.png, id=179, 805.0075pt x 397.485pt>
+File: img/SSFM.png Graphic file (type png)
+<use img/SSFM.png>
+Package pdftex.def Info: img/SSFM.png  used on input line 137.
+(pdftex.def)             Requested size: 290.22107pt x 143.3007pt.
+
+Overfull \hbox (37.60716pt too wide) detected at line 161
+[]\OML/cmm/m/it/10 A[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 dz\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 NL[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 A[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z\OT1/cmr/m/n/10 )) := \OML/cmm/m/it/10 A[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 : \OMS/cmsy/m/n/10 ^^C [] [] \OT1/cmr/m/n/10 := \OML/cmm/m/it/10 A[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 z\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 : \OMS/cmsy/m/n/10 ^^C [] []
+ []
+
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 169.
+LaTeX Font Info:    Try loading font information for C70+gbsn on input line 177.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/cjk/texinput/UTF8/c70gbsn.fd
+File: c70gbsn.fd 2015/04/18 4.8.4
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/cjk/texinput/UTF8/c70gbsn.fdx
+File: c70gbsn.fdx 2015/04/18 4.8.4
+) [4 </Users/xinyu/Desktop/WDM_Code/report/img/SSFM.png>]
+<img/com_system.png, id=196, 1054.94125pt x 553.06625pt>
+File: img/com_system.png Graphic file (type png)
+<use img/com_system.png>
+Package pdftex.def Info: img/com_system.png  used on input line 221.
+(pdftex.def)             Requested size: 386.95897pt x 202.86754pt.
+) [5 </Users/xinyu/Desktop/WDM_Code/report/img/com_system.png>]
+\openout2 = `chapter2.aux'.
+
+ (/Users/xinyu/Desktop/WDM_Code/report/chapter2.tex
+<img/DO-DBP.png, id=213, 678.535pt x 542.025pt>
+File: img/DO-DBP.png Graphic file (type png)
+<use img/DO-DBP.png>
+Package pdftex.def Info: img/DO-DBP.png  used on input line 16.
+(pdftex.def)             Requested size: 290.22107pt x 231.83388pt.
+<img/SC-DBP.png, id=214, 760.8425pt x 192.72pt>
+File: img/SC-DBP.png Graphic file (type png)
+<use img/SC-DBP.png>
+Package pdftex.def Info: img/SC-DBP.png  used on input line 27.
+(pdftex.def)             Requested size: 290.22107pt x 73.51372pt.
+<img/NN.png, id=219, 442.65375pt x 222.8325pt>
+File: img/NN.png Graphic file (type png)
+<use img/NN.png>
+Package pdftex.def Info: img/NN.png  used on input line 39.
+(pdftex.def)             Requested size: 290.22107pt x 146.10426pt.
+<img/NN-DBP.png, id=220, 673.51625pt x 331.2375pt>
+File: img/NN-DBP.png Graphic file (type png)
+<use img/NN-DBP.png>
+Package pdftex.def Info: img/NN-DBP.png  used on input line 40.
+(pdftex.def)             Requested size: 290.22107pt x 142.73259pt.
+ [6
+
+
+ </Users/xinyu/Desktop/WDM_Code/report/img/DO-DBP.png> </Users/xinyu/Desktop/WDM_Code/report/img/SC-DBP.png>]
+<img/Meta-1.png, id=233, 677.53125pt x 304.13625pt>
+File: img/Meta-1.png Graphic file (type png)
+<use img/Meta-1.png>
+Package pdftex.def Info: img/Meta-1.png  used on input line 77.
+(pdftex.def)             Requested size: 290.22107pt x 130.27946pt.
+<img/FNNphi.png, id=234, 597.23125pt x 368.37625pt>
+File: img/FNNphi.png Graphic file (type png)
+<use img/FNNphi.png>
+Package pdftex.def Info: img/FNNphi.png  used on input line 84.
+(pdftex.def)             Requested size: 193.47578pt x 119.33862pt.
+<img/FNNpsi.png, id=235, 586.19pt x 305.14pt>
+File: img/FNNpsi.png Graphic file (type png)
+<use img/FNNpsi.png>
+Package pdftex.def Info: img/FNNpsi.png  used on input line 85.
+(pdftex.def)             Requested size: 193.47578pt x 100.71046pt.
+ [7 </Users/xinyu/Desktop/WDM_Code/report/img/NN.png> </Users/xinyu/Desktop/WDM_Code/report/img/NN-DBP.png>] [8 </Users/xinyu/Desktop/WDM_Code/report/img/Meta-1.png> </Users/xinyu/Desktop/WDM_Code/report/img/FNNphi.png> </Users/xinyu/Desktop/WDM_Code/report/img/FNNpsi.png>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 140.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 140.
+<img/expriment/fixpower_loss.png, id=276, 433.62pt x 289.08pt>
+File: img/expriment/fixpower_loss.png Graphic file (type png)
+<use img/expriment/fixpower_loss.png>
+Package pdftex.def Info: img/expriment/fixpower_loss.png  used on input line 218.
+(pdftex.def)             Requested size: 174.12701pt x 116.08427pt.
+<img/expriment/W120-D3-loss.png, id=277, 433.62pt x 289.08pt>
+File: img/expriment/W120-D3-loss.png Graphic file (type png)
+<use img/expriment/W120-D3-loss.png>
+Package pdftex.def Info: img/expriment/W120-D3-loss.png  used on input line 224.
+(pdftex.def)             Requested size: 174.12701pt x 116.08427pt.
+<img/expriment/W60-D2-P50star.png, id=278, 1156.32pt x 578.16pt>
+File: img/expriment/W60-D2-P50star.png Graphic file (type png)
+<use img/expriment/W60-D2-P50star.png>
+Package pdftex.def Info: img/expriment/W60-D2-P50star.png  used on input line 238.
+(pdftex.def)             Requested size: 386.95897pt x 193.47527pt.
+<img/expriment/W60-D2-P55star.png, id=279, 1156.32pt x 578.16pt>
+File: img/expriment/W60-D2-P55star.png Graphic file (type png)
+<use img/expriment/W60-D2-P55star.png>
+Package pdftex.def Info: img/expriment/W60-D2-P55star.png  used on input line 245.
+(pdftex.def)             Requested size: 386.95897pt x 193.47527pt.
+<img/expriment/W60-D2-P45star.png, id=280, 1156.32pt x 578.16pt>
+File: img/expriment/W60-D2-P45star.png Graphic file (type png)
+<use img/expriment/W60-D2-P45star.png>
+Package pdftex.def Info: img/expriment/W60-D2-P45star.png  used on input line 252.
+(pdftex.def)             Requested size: 386.95897pt x 193.47527pt.
+<img/expriment/W120-D3-P50star.png, id=281, 1156.32pt x 578.16pt>
+File: img/expriment/W120-D3-P50star.png Graphic file (type png)
+<use img/expriment/W120-D3-P50star.png>
+Package pdftex.def Info: img/expriment/W120-D3-P50star.png  used on input line 322.
+(pdftex.def)             Requested size: 386.95897pt x 193.47527pt.
+<img/expriment/W120-D3-P55star.png, id=282, 1156.32pt x 578.16pt>
+File: img/expriment/W120-D3-P55star.png Graphic file (type png)
+<use img/expriment/W120-D3-P55star.png>
+Package pdftex.def Info: img/expriment/W120-D3-P55star.png  used on input line 329.
+(pdftex.def)             Requested size: 386.95897pt x 193.47527pt.
+<img/expriment/W120-D3-P60star.png, id=283, 1156.32pt x 578.16pt>
+File: img/expriment/W120-D3-P60star.png Graphic file (type png)
+<use img/expriment/W120-D3-P60star.png>
+Package pdftex.def Info: img/expriment/W120-D3-P60star.png  used on input line 336.
+(pdftex.def)             Requested size: 386.95897pt x 193.47527pt.
+ [9 </Users/xinyu/Desktop/WDM_Code/report/img/expriment/fixpower_loss.png> </Users/xinyu/Desktop/WDM_Code/report/img/expriment/W120-D3-loss.png>] [10] [11 </Users/xinyu/Desktop/WDM_Code/report/img/expriment/W60-D2-P50star.png> </Users/xinyu/Desktop/WDM_Code/report/img/expriment/W60-D2-P55star.png> </Users/xinyu/Desktop/WDM_Code/report/img/expriment/W60-D2-P45star.png>] [12 </Users/xinyu/Desktop/WDM_Code/report/img/expriment/W120-D3-P50star.png> </Users/xinyu/Desktop/WDM_Code/report/img/expriment/W120-D3-P55star.png> </Users/xinyu/Desktop/WDM_Code/report/img/expriment/W120-D3-P60star.png>]) [13]
+\openout2 = `basics.aux'.
+
+ (/Users/xinyu/Desktop/WDM_Code/report/basics.tex) [14
+
+
+] [15]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 55.
+ [16
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 55.
+ (/Users/xinyu/Desktop/WDM_Code/report/report.aux (/Users/xinyu/Desktop/WDM_Code/report/chapter1.aux) (/Users/xinyu/Desktop/WDM_Code/report/chapter2.aux) (/Users/xinyu/Desktop/WDM_Code/report/basics.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 55.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 55.
+Package rerunfilecheck Info: File `report.out' has not changed.
+(rerunfilecheck)             Checksum: 19989B5C58FF3B04A152CA4B8AFEE4A7;1524.
+Package logreq Info: Writing requests to 'report.run.xml'.
+\openout1 = `report.run.xml'.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 55.
+ ) 
+Here is how much of TeX's memory you used:
+ 16878 strings out of 492649
+ 272295 string characters out of 6129623
+ 741884 words of memory out of 5000000
+ 20343 multiletter control sequences out of 15000+600000
+ 17555 words of font info for 66 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 44i,13n,50p,974b,2072s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu30.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu4e.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu50.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu67.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu6b.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu6c.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu8f.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/arphic/gbsnu/gbsnuff.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on /Users/xinyu/Desktop/WDM_Code/report/report.pdf (16 pages, 1181950 bytes).
+PDF statistics:
+ 484 PDF objects out of 1000 (max. 8388607)
+ 382 compressed objects within 4 object streams
+ 111 named destinations out of 1000 (max. 500000)
+ 314 words of extra memory for PDF output out of 10000 (max. 10000000)
+
