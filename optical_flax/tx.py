@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 from pickle import NONE
+=======
+>>>>>>> 4cb9768a15bde739d1dbd26948a767f359a3de30
 import numpy as np
 import jax.numpy as jnp
 import jax
@@ -87,8 +90,12 @@ def upsample(x, n):
     return y
 
 
+<<<<<<< HEAD
 @partial(jax.jit,static_argnums=(2,))
 def simpleWDMTx(key, pulse, param):
+=======
+def simpleWDMTx(key, param):
+>>>>>>> 4cb9768a15bde739d1dbd26948a767f359a3de30
     """
     Simple WDM transmitter
     
@@ -108,6 +115,23 @@ def simpleWDMTx(key, pulse, param):
     :param.Nmodes: number of polarization modes [default: 1]
 
     """
+<<<<<<< HEAD
+=======
+    # check input parameters
+    param.M     = getattr(param, 'M', 16)
+    param.Rs    = getattr(param, 'Rs', 32e9)
+    param.SpS   = getattr(param, 'SpS', 16)
+    param.Nbits = getattr(param, 'Nbits', 60000)
+    param.pulse_type = getattr(param, 'pulse_type', 'rrc')
+    param.Ntaps    = getattr(param, 'Ntaps', 4096)
+    param.alphaRRC = getattr(param, 'alphaRRC', 0.01)
+    param.Pch_dBm  = getattr(param, 'Pch_dBm', -3)
+    param.Nch      = getattr(param, 'Nch', 5)
+    param.Fc       = getattr(param, 'Fc', 193.1e12)
+    param.freqSpac = getattr(param, 'freqSpac', 50e9)
+    param.Nmodes   = getattr(param, 'Nmodes', 1)
+    param.equation = getattr(param, 'equation', 'NLSE')
+>>>>>>> 4cb9768a15bde739d1dbd26948a767f359a3de30
 
     ## sampling thm
     fa = param.Rs * param.SpS
@@ -123,7 +147,15 @@ def simpleWDMTx(key, pulse, param):
     Ta  = 1/Fa              # sampling period [s]
 
     
+<<<<<<< HEAD
 
+=======
+    # central frequencies of the WDM channels
+    freqGrid = np.arange(-int(param.Nch/2), int(param.Nch/2)+1,1)*param.freqSpac
+    if (param.Nch % 2) == 0:
+        freqGrid += param.freqSpac/2
+        
+>>>>>>> 4cb9768a15bde739d1dbd26948a767f359a3de30
     # IQM parameters
     Ai = 1
     Vπ = 2
@@ -132,15 +164,39 @@ def simpleWDMTx(key, pulse, param):
     π = np.pi
     t = np.arange(0, ((param.Nbits)//np.log2(param.M))*param.SpS)
 
+<<<<<<< HEAD
+=======
+    # pulse shaping
+    if param.pulse_type == 'nrz':
+        pulse = pulseShape('nrz', param.SpS)
+    elif param.pulse_type == 'rrc':
+        pulse = pulseShape('rrc', param.SpS, N=param.Ntaps, alpha=param.alphaRRC, Ts=Ts)
+    elif param.pulse_type == 'rc':
+        pulse = pulseShape('rc', param.SpS, N=param.Ntaps, alpha=param.alphaRRC, Ts=Ts)
+    pulse = jax.device_put(pulse/np.max(np.abs(pulse)))
+
+    if param.equation == 'NLSE':
+        param.freqGrid = freqGrid
+    else:
+        param.freqGrid = freqGrid*0
+    param.pulse = pulse
+>>>>>>> 4cb9768a15bde739d1dbd26948a767f359a3de30
 
     # modulation scheme
     mod = QAM(M=param.M)
     Es = mod.Es
 
+<<<<<<< HEAD
     vmap = partial(jax.vmap, in_axes=(-1, None), out_axes=-1)
 
 
     def one_channel(key, pulse):
+=======
+    vmap = partial(jax.vmap, in_axes=-1, out_axes=-1)
+
+    @jax.jit
+    def one_channel(key):
+>>>>>>> 4cb9768a15bde739d1dbd26948a767f359a3de30
         # step 1: generate random bits      bitsTx: [Nbits,]
         bitsTx = jax.random.randint(key, (param.Nbits,), 0, 2)
         # step 2: map bits to constellation symbols  symbTx: [Nsymb,]
@@ -157,9 +213,15 @@ def simpleWDMTx(key, pulse, param):
         return sigTxCh, symbTx
     
     key_full = jax.random.split(key, param.Nch*param.Nmodes).reshape(2, param.Nch, param.Nmodes)
+<<<<<<< HEAD
     sigWDM, SymbTx = vmap(vmap(one_channel))(key_full, pulse) #[Nsymb*SpS, Nch, Nmodes]
 
     wdm_wave = np.exp(1j*2*π/Fa * param.freqGrid[None,:]*t[:,None]) # [Nsymb*SpS, Nch]
+=======
+    sigWDM, SymbTx = jax.jit(vmap(vmap(one_channel)))(key_full) #[Nsymb*SpS, Nch, Nmodes]
+
+    wdm_wave = np.exp(1j*2*π/Fa * freqGrid[None,:]*t[:,None]) # [Nsymb*SpS, Nch]
+>>>>>>> 4cb9768a15bde739d1dbd26948a767f359a3de30
     wdm_wave_pol = np.repeat(wdm_wave[...,None], param.Nmodes, -1) # [Nsymb*SpS, Nch, Nmodes]
     wdm_wave_pol = jax.device_put(wdm_wave_pol)
 
