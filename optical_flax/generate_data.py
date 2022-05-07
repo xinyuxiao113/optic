@@ -19,7 +19,7 @@ import pickle
 from gdbp import gdbp_base as gb, data as gdat, aux
 import optax
 from optical_flax.utils import auto_rho
-Input = namedtuple('DataInput', ['y', 'x', 'w0', 'a'])
+DataInput = namedtuple('DataInput', ['y', 'x', 'w0', 'a'])
 
 ## 测试进度条
 from tqdm import tqdm
@@ -27,7 +27,7 @@ from time import sleep
 
 
 
-def Tx_data(key, batch, Nch, SpS, Power, Nbits=400000, path = 'data/sml_data/Tx_ch7_N4e6', save=True):
+def Tx_data(key, batch, Nch, SpS=16, Power=0, Nbits=400000):
     '''
     Generate Tx data!
     '''
@@ -86,27 +86,12 @@ def Tx_data(key, batch, Nch, SpS, Power, Nbits=400000, path = 'data/sml_data/Tx_
     symbWDM = jnp.stack(symbol, 0)
     print(f'signal shape: {sigWDM.shape}, symb shape: {symbWDM.shape}')
 
-    if save:
-        with open(path,'wb') as file:
-            pickle.dump((sigWDM, symbWDM, param), file)
-        print('Data has been saved!')
+    return sigWDM, symbWDM, param
 
-    return sigWDM, symbWDM
 
-def Rx_data(key, tx_data_path, rx_data_path='sml_data/dataset_ch7_N4e6_dz1.5', dz=1.5, sps=2):
-    '''
-    generate Rx data
-    '''
-
-    # step 1: load Tx data
-    with open(tx_data_path,'rb') as file:
-        sigWDM_Tx, symbTx_, param = pickle.load(file)
-    print('Tx data has been loaded in')
-    print(f'signal shape: {sigWDM_Tx.shape}, symb shape: {symbTx_.shape}')
-    
-
-    # STEP 2: fiber transmitting
-    print('channel working!')
+def channel(sigWDM_Tx, Fs, dz=1):
+    print('data transmition...')
+    np.random.seed(2333)
     linearChannel = False
     paramCh = parameters()
     paramCh.Ltotal = 1125   # km
@@ -117,21 +102,25 @@ def Rx_data(key, tx_data_path, rx_data_path='sml_data/dataset_ch7_N4e6_dz1.5', d
     paramCh.hz =  dz      # km
     paramCh.gamma = 1.3174420805376552    # 1/(W.km)
     paramCh.amp = 'edfa'
-    paramCh.NF     = 4.5
+    paramCh.NF = 4.5
     if linearChannel:
         paramCh.hz = paramCh.Lspan  # km
         paramCh.gamma = 0   # 1/(W.km)
-    Fs = param.Rs*param.SpS  # sample rates
-
+    
     if len(sigWDM_Tx.shape) == 3:
         sigWDM = jax.vmap(manakov_ssf,in_axes=(0,None,None), out_axes=0)(sigWDM_Tx, Fs, paramCh) 
     else:
         sigWDM = manakov_ssf(sigWDM_Tx, Fs, paramCh) 
-
     print('channel transmission done!')
-    print('Receiver is working...')
+    print(f'Signal shape {sigWDM.shape}')
+    return sigWDM, paramCh
 
-    # step 3: Rx
+
+
+def Rx_data(key, sigWDM, symbWDM, sps, param, paramCh):
+    '''
+    generate Rx data
+    '''
     paramRx = parameters()
     paramRx.chid = int(param.Nch / 2)
     paramRx.sps = sps
@@ -149,11 +138,15 @@ def Rx_data(key, tx_data_path, rx_data_path='sml_data/dataset_ch7_N4e6_dz1.5', d
         sigRx = jax.vmap(simpleRx, in_axes=(0,None,None,0,None),out_axes=0)(key_full, FO, param.freqGrid[paramRx.chid], sigWDM, paramRx)
     else:
         sigRx = simpleRx(key, FO, param.freqGrid[paramRx.chid], sigWDM, paramRx)
-    data_sml = sml_dataset(sigRx, symbTx_, param, paramCh, paramRx, save=True, path=rx_data_path)
-    return 0
+    data_sml = sml_dataset(sigRx, symbWDM, param, paramCh, paramRx)
+    return data_sml
+
+
+
+
 
 from collections import namedtuple
-Input = namedtuple('DataInput', ['y', 'x', 'w0', 'a'])
+DataInput = namedtuple('DataInput', ['y', 'x', 'w0', 'a'])
 
 def get_data(path,sps=2, batch=False):
     '''
@@ -176,7 +169,7 @@ def get_data(path,sps=2, batch=False):
         x = b[1]
     
     a['sps'] = sps
-    return Input(y, x, w0, a)
+    return DataInput(y, x, w0, a)
 
 
 

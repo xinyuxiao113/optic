@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from collections import namedtuple
 import pickle
 
-Input = namedtuple('DataInput', ['y', 'x', 'w0', 'a'])
+DataInput = namedtuple('DataInput', ['y', 'x', 'w0', 'a'])
 
 def simpleRx(key, FO, freq, sigWDM, paramRx):
     paramRx.N = len(sigWDM)
@@ -31,7 +31,7 @@ def simpleRx(key, FO, freq, sigWDM, paramRx):
     sigRx3 = sigRx2[::down_sample_rate, :]
     return sigRx3
 
-def sml_dataset(sigRx, symbTx_, param, paramCh, paramRx, save=True, path='sml_data/dataset'):
+def sml_dataset(sigRx, symbTx_, param, paramCh, paramRx):
     a = {'baudrate': param.Rs,
     'channelindex': paramRx.chid,
     'channels': param.Nch,
@@ -51,12 +51,8 @@ def sml_dataset(sigRx, symbTx_, param, paramCh, paramRx, save=True, path='sml_da
 
     
     symbTx = symbTx_[:,:,paramRx.chid]
-    data_train_sml = Input(sigRx, symbTx, 2 * np.pi * paramRx.FO / param.Rs, a)
-    if save:
-        with open(path,'wb') as file:
-            b = pickle.dump((sigRx, symbTx, 2 * np.pi * paramRx.FO / param.Rs, a), file)
-        print('data has been saved!')
-    return data_train_sml
+    data_train_sml = DataInput(sigRx, symbTx, 2 * np.pi * paramRx.FO / param.Rs, a)
+    return data_train_sml, paramRx
 
 
 
