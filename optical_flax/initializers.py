@@ -20,6 +20,8 @@ def delta(key, shape, dtype=jnp.float32):
     return jnp.tile(np.expand_dims(k1d, axis=list(range(1, len(shape)))), (1,) + shape[1:])
 
 
+
+
 def gauss(key, shape, dtype=jnp.float32):
     taps = shape[0]
     k1d = comm.gauss(comm.gauss_minbw(taps), taps=taps, dtype=dtype)
@@ -27,7 +29,7 @@ def gauss(key, shape, dtype=jnp.float32):
 
 
 def near_zeros(key, shape, dtype=jnp.float32):
-    return random.normal(key, shape, dtype) * 1e-8
+    return random.normal(key, shape, dtype) * 1e-2
 
 
 def fdbp_init(a: dict,
@@ -55,6 +57,10 @@ def fdbp_init(a: dict,
             dtaps,
             a['lpdbm'] - 3,  # rescale as input power which has been norm to 2 in dataloader
             virtual_spans=steps,
+            carrier_frequency=a['carrier_frequency'],
+            fiber_dispersion=a['D'],
+            fiber_loss=a['fiber_loss'],
+            gamma=a['gamma'],
             domain=domain)
         return d0[0, :, 0]
 
@@ -65,8 +71,12 @@ def fdbp_init(a: dict,
             a['distance'] / a['spans'],
             a['spans'],
             dtaps,
-            a['lpdbm'] - 3,  # rescale
+            a['lpdbm'] - 3,  # rescale as input power which has been norm to 2 in dataloader
             virtual_spans=steps,
+            carrier_frequency=a['carrier_frequency'],
+            fiber_dispersion=a['D'],
+            fiber_loss=a['fiber_loss'],
+            gamma=a['gamma'],
             domain=domain)
 
         return xi * n0[0, 0, 0] * core.gauss(key, shape, dtype)
@@ -86,8 +96,7 @@ def dbp_params(
     fiber_dispersion=16.5E-6,                         # [s/m^2]
     fiber_dispersion_slope=0.08e3,                    # [s/m^3]
     fiber_loss=.2E-3,                                 # loss of fiber [dB/m]
-    fiber_core_area=80E-12,                           # effective area of fiber [m^2]
-    fiber_nonlinear_index=2.6E-20,                    # nonlinear index [m^2/W]
+    gamma = 1.6567e-3,                                # 1/W/m             
     fiber_reference_frequency=299792458/1550E-9,      # fiber reference frequency [Hz]
     ignore_beta3=False,
     polmux=True,
@@ -102,6 +111,7 @@ def dbp_params(
     log = np.log
     exp = np.exp
     ifft = np.fft.ifft
+    
 
     # virtual span is used in cases where we do not use physical span settings
     if virtual_spans is None:
@@ -110,11 +120,9 @@ def dbp_params(
     C       = 299792458. # speed of light [m/s]
     lambda_ = C / fiber_reference_frequency
     B_2     = -fiber_dispersion * lambda_**2 / (2 * pi * C)
-    B_3     = 0. if ignore_beta3 else \
-        (fiber_dispersion_slope * lambda_**2 + 2 * fiber_dispersion * lambda_) * (lambda_ / (2 * pi * C))**2 #[/m/W]
-    gamma   = 2 * pi * fiber_nonlinear_index / lambda_ / fiber_core_area  #[/m/W]
-    LP      = 10.**(launch_power / 10 - 3)  # 将【dBm】转化为 [W]
-    alpha   = fiber_loss / (10. / log(10.)) # 计算出方程中的衰减系数alpha，z单位 [m]
+    B_3     = 0. if ignore_beta3 else (fiber_dispersion_slope * lambda_**2 + 2 * fiber_dispersion * lambda_) * (lambda_ / (2 * pi * C))**2 #[/m/W]
+    LP      = 10.**(launch_power / 10 - 3)  # 将[dBm]转化为 [W]
+    alpha   = fiber_loss / (10. / log(10.)) # 计算出方程中的衰减系数alpha，z单位 [dB/m]
     L_eff   = lambda h: (1 - exp(-alpha * h)) / alpha
     NIter   = virtual_spans * steps_per_span
     delay   = (freqs - 1) // 2
@@ -124,10 +132,8 @@ def dbp_params(
     w       = np.where(k > delay, k - freqs, k) * w_res # ifftshifted
 
     if step_method.lower() == "uniform":
-        ## 下面原来是 -1j
-        H   = exp(-1j * (-B_2 / 2 * (w + dw)**2 + B_3 / 6 * (w + dw)**3) * \
-                      span_length * spans / virtual_spans / steps_per_span)
-                      ## dz = span_length * spans / virtual_spans / steps_per_span
+        dz = span_length * spans / virtual_spans / steps_per_span
+        H   = exp(-1j * (-B_2 / 2 * (w + dw)**2 + B_3 / 6 * (w + dw)**3) * dz)
         H_casual = H * exp(-1j * w * delay / sample_rate) ## 频域相位旋转等价于时域平移，将时域对齐
         h_casual = ifft(H_casual)
         ## 下面是正号

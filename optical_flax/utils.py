@@ -8,6 +8,13 @@ from typing import Any, NamedTuple
 from flax.core import freeze, unfreeze
 from commplax.module.core import Signal
 
+class parameters:
+    """
+    Basic class to be used as a struct of parameters
+    """
+    pass
+
+
 def normal_init(key,shape, dtype = jnp.float32):
     k1,k2 = random.split(key)
     x = random.normal(k1,shape)  + 1j * random.normal(k2,shape)
@@ -132,3 +139,28 @@ def auto_rho(x,y):
     Vx = jnp.var(x)
     Vy = jnp.var(y)
     return (corr_circ(x,y)/N - Ex*Ey)/jnp.sqrt(Vx*Vy)
+
+import time
+def calc_time(f):
+    
+    @wraps(f)
+    def _f(*args, **kwargs):
+        t0 = time.time()
+        y = f(*args, **kwargs)
+        t1 = time.time()
+        print(f' {f.__name__} complete, time cost(s):{t1-t0}')
+        return y
+    return _f
+
+
+
+import os, sys
+
+class HiddenPrints:
+    def __enter__(self):
+        self._original_stdout = sys.stdout
+        sys.stdout = open(os.devnull, 'w')
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        sys.stdout.close()
+        sys.stdout = self._original_stdout

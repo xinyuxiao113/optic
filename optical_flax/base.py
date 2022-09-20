@@ -31,7 +31,7 @@ def model_init(data,
         steps=3,xi=1.1, domain='time',mode='train',
         **kwargs):
     '''
-    init a model
+    Init a model
     data: data set
     init_len: length of sequence for initializing the model
     steps: DBP steps

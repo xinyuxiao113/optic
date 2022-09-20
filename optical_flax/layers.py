@@ -1,11 +1,8 @@
-from ast import Call
 import jax
 import jax.numpy as jnp
-from jax import device_put, device_get
 import jax.random as random
 import numpy as np
 import flax.linen as nn
-import optax
 from functools import partial, wraps
 from typing import Any, NamedTuple,Callable, Iterable, Optional, Tuple, Union,Sequence
 from collections import namedtuple
@@ -16,9 +13,11 @@ from commplax import adaptive_filter as af
 from commplax.module import core
 from commplax import cxopt
 
+import sys
+sys.path.append('/home/xiaoxinyu/optic')
 
 from optical_flax.functions import crelu, ctanh, csigmoid
-from optical_flax.initializers import ones
+from optical_flax.initializers import near_zeros, ones
 from optical_flax.utils import nn_vmap_x, nn_vmap_signal, normal_init
 
 
@@ -277,26 +276,48 @@ class DSP_Model(nn.Module):
 fft = jnp.fft.fft
 ifft = jnp.fft.ifft
 
+from optical_flax.functions import cleaky_relu
+
 
 class Dense_net(nn.Module):
     features:int = 20
-    width:list = (40,40)
+    width:list = (60,60)
+    dropout_rate:float = 0.5
     dtype:Any = jnp.complex64
     param_dtype:Any = jnp.complex64
-    act:Callable=crelu
+    act:Callable=cleaky_relu
     result_init:Callable=zeros
+    nn_mode: bool=False
+    '''
+        input: 
+        case 0: [dtaps, 2] --> [dtaps,2]  (encoder)
+        case 2: [dtaps, 2] --> [1, 2]  (encoder + regression)
+
+
+        nn_mode: Degenerate to NNSSFM if True.
+        to_real: Transform output to real number if True.
+    '''
 
     @nn.compact
-    def __call__(self,inputs):
-        Dense  = partial(nn.Dense, dtype=self.dtype, param_dtype=self.param_dtype)
-        x = inputs
-        for w in self.width:
-            x = Dense(features=w,bias_init=zeros)(x)
-            x = self.act(x)
-        x = Dense(features=self.features,kernel_init=zeros, bias_init=self.result_init)(x)
-        return x
-
-
+    def __call__(self, inputs, train=False):
+        if self.nn_mode==True:   
+            p = self.param('nn_weight', self.result_init, (self.features,), self.param_dtype)
+            return jnp.stack([p,p],axis=-1)
+        else:
+            Dense  = partial(nn.Dense,dtype=self.dtype, param_dtype=self.param_dtype)
+            x = nn.LayerNorm(dtype=self.dtype,param_dtype=self.param_dtype,reduction_axis=0,feature_axis=-1)(inputs)
+            x = x.reshape(-1)
+            for w in self.width:
+                x = Dense(features=w)(x)
+                x = self.act(x) 
+                x = nn.Dropout(rate=self.dropout_rate)(x, deterministic=not train)
+            # TODO: weight initializers.
+            # x = Dense(features=self.features, bias_init=self.result_init)(x)
+            
+            # FIXME: Another choise  
+            bias = self.result_init('key',(self.features,), self.param_dtype)
+            x = Dense(features=self.features, use_bias=False)(x) + bias
+            return jnp.stack([x,x],axis=-1)
 
 
 class MetaSSFM(nn.Module):
@@ -305,23 +326,48 @@ class MetaSSFM(nn.Module):
     n_init: Callable=zeros
     dtaps: int=1024
     ntaps: int=1
-    
+    discard:int=450
+    Meta_H: Callable = partial(Dense_net, width=(5,5))
+    Meta_xi: Callable = partial(Dense_net, width=(5,5), dtype=jnp.float32, param_dtype=jnp.float32)
+
 
     def setup(self):
         ## 分别对 Ex, Ey 做 meta
-        Dense_c = nn_vmap_x(partial(Dense_net,dtype=jnp.complex64,param_dtype=jnp.complex64))
-        Dense_r = partial(Dense_net,dtype=jnp.float32,param_dtype=jnp.float32, act=jax.nn.relu)
-        self.H = Dense_c(features=self.dtaps, result_init=self.d_init)
-        self.phi = Dense_r(features=self.ntaps, result_init=self.n_init)
+        self.H = [self.Meta_H(features=self.dtaps, result_init=self.d_init) for i in range(self.steps)]
+        # self.H = [self.param('H'+str(i), self.d_init, (self.dtaps,)) for i in range(self.steps)]
+        self.phi = [self.Meta_xi(features=self.ntaps, result_init=ones) for i in range(self.steps)]
     
-    def __call__(self, signal):
+    def __call__(self, signal, train=False):
         x,t = signal # x : [dtaps, 2] complex
+        varphi = self.n_init('key', (1,))
         for i in range(self.steps):
-            x = ifft(fft(x, axis=0) * self.H(x), axis=0)  # H(x): [dtaps, 2]
+            x = ifft(fft(x, axis=0) * self.H[i](x, train=train), axis=0)  # H(x): [dtaps, 2]
+            power = jnp.sum(jnp.abs(x)**2, axis=1)[:,None]  # power: [dtaps,1]   self.phi[i](x): [1, 2] or [dtaps, 2]
+            x = x * jnp.exp(1j * varphi * self.phi[i](jnp.abs(x)**2,train=train) * power)
+        t = SigTime(self.discard,-self.discard,t.sps)
+        return Signal(x[self.discard:x.shape[0]-self.discard],t)      
+
+
+class NNSSFM(nn.Module):
+    steps:int=3
+    d_init: Callable=zeros
+    n_init: Callable=zeros
+    dtaps: int=1024
+    ntaps: int=1
+    discard:int=450
+    
+
+    @nn.compact
+    def __call__(self, signal):
+        x,t = signal
+        for i in range(self.steps):
+            H = self.param('H'+str(i), self.d_init, (self.dtaps,))
+            xi = self.param('xi'+str(i), self.n_init, (self.ntaps,))
+            x = ifft(fft(x, axis=0) * H[:,None], axis=0)
             power = jnp.expand_dims(jnp.sum(jnp.abs(x)**2, axis=1), axis=1)
-            x = x * jnp.exp(1j * self.phi(jnp.abs(x.reshape(-1))**2) * power)
-        t = SigTime(450,-450,2)
-        return Signal(x[450:-450],t)
+            x = x * jnp.exp(1j * xi[...,None] * power)
+        t = SigTime(self.discard,-self.discard,2)
+        return Signal(x[self.discard:x.shape[0]-self.discard],t)
 
 ################################################ GRU module ################################################
 ## GRU
@@ -481,5 +527,3 @@ class GRU_DBP(nn.Module):
         return Signal(signal.val[0,:,:],signal.t)
         
 
-
-           

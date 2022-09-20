@@ -1,11 +1,10 @@
-from scipy.signal import lfilter
 import numpy as np
 import jax.numpy as jnp
 from commpy.filters import rrcosfilter, rcosfilter
 from commpy.utilities  import signal_power, upsample
 from scipy.stats.kde import gaussian_kde
 import scipy.constants as const
-from optical_flax.models import linFiberCh
+from optical_flax.fiber_rx import linFiberCh
 import matplotlib.pyplot as plt
 from jax.numpy.fft import fft, ifft, fftfreq, fftshift
 from tqdm import tqdm
@@ -14,7 +13,6 @@ from commpy.modulation import QAMModem
 
 
 from commplax import equalizer as eq 
-from commplax import xcomm
 from commplax import comm
 from optical_flax.utils import auto_rho
 import jax
@@ -192,7 +190,7 @@ def cpr(Ei, N, constSymb, symbTx):
     for k in range(0,len(Ei)):
         
         predict = Ei[k]*np.exp(1j*θ[k-1])
-        decided = np.argmin(predict - constSymb) # find closest constellation symbol
+        decided = np.argmin(np.abs(predict - constSymb)) # find closest constellation symbol
         
         if k % 50 == 0:
             ϕ[k] = np.angle(symbTx[k]/predict) + θ[k-1] # phase estimation with pilot symbol
@@ -348,7 +346,7 @@ def cpr2(Ei, symbTx=[], paramCPR=[]):
 
     # check input parameters
     alg = getattr(paramCPR, "alg", "bps")
-    M = getattr(paramCPR, "M", 4)
+    M = getattr(paramCPR, "M", 16)
     B = getattr(paramCPR, "B", 64)
     N = getattr(paramCPR, "N", 35)
     Kv = getattr(paramCPR, "Kv", 0.1)
@@ -560,7 +558,7 @@ def test_result(sigRx7, symbTx, mod, discard=100, show_name='Your method'):
     return SNR, BER, err
 
 from scipy import signal
-from optical_flax.core import parameters
+from optical_flax.utils import parameters
 from commplax.module import core
 from jax import device_get
 def simple_dsp(data, eval_range=(30000, -20000), metric_fn=comm.qamqot):
