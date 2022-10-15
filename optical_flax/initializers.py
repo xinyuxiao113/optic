@@ -61,7 +61,8 @@ def fdbp_init(a: dict,
             fiber_dispersion=a['D'],
             fiber_loss=a['fiber_loss'],
             gamma=a['gamma'],
-            domain=domain)
+            domain=domain,
+            ignore_beta3=True)
         return d0[0, :, 0]
 
     def n_init(key, shape, dtype=jnp.float32):
@@ -77,7 +78,8 @@ def fdbp_init(a: dict,
             fiber_dispersion=a['D'],
             fiber_loss=a['fiber_loss'],
             gamma=a['gamma'],
-            domain=domain)
+            domain=domain,
+            ignore_beta3=True)
 
         return xi * n0[0, 0, 0] * core.gauss(key, shape, dtype)
 

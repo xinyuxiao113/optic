@@ -2,11 +2,13 @@ import numpy as np
 import pickle
 import jax
 import jax.numpy as jnp
+from commpy.modulation import QAMModem
 
 from optical_flax.fiber_channel import manakov_ssf
 from optical_flax.fiber_tx import simpleWDMTx, pulseShape, wdm_base
 from optical_flax.fiber_rx import simpleRx, sml_dataset
-from optical_flax.utils import parameters, calc_time
+from optical_flax.utils import calc_time
+from optical_flax.core import parameters
 from collections import namedtuple
 
 
@@ -24,6 +26,7 @@ class MySignal:
     sps: int=struct.field(pytree_node=False)
     Nch: int=struct.field(pytree_node=False)
     freqspace: float=struct.field(pytree_node=False)
+    
 
     def __add__(self,other):
         return  MySignal(val=self.val + other.val, sps=self.sps, Fs=self.Fs, Nch=self.Nch, freqspace=self.freqspace)
@@ -72,7 +75,6 @@ def Tx_data(key, batch, Nch, SpS=32, Power=0, Nbits=400000, Rs=190e9, freq_space
 
     '''
     # Setting transmitter parameters
-    from commpy.modulation import QAMModem
     param = parameters()
     param.Pch_dBm = Power    # Power[dBm]
     param.Nch     = Nch      # número de canais WDM
@@ -196,7 +198,7 @@ def channel(key, sigWDM_Tx, Fs, dz=1, module=manakov_ssf):
 
 
 @calc_time
-def Rx_data(key, sigWDM, symbWDM, sps, param, paramCh, FO=64e6, lw=100e3):
+def Rx_data(key, sigWDM, symbWDM, sps, param, paramCh, FO=64e6, lw=100e3, setting='ideal'):
     '''
     generate Central channel rx data.
 
@@ -208,6 +210,7 @@ def Rx_data(key, sigWDM, symbWDM, sps, param, paramCh, FO=64e6, lw=100e3):
         FO: frequency offset
         lw: linewidth of noise
         paramCh: prameters of Fiber Channel
+        setting: 'simpleRx' or 'ideal'
     Output:
         data_sml:
             dataset, a namedtuple('DataInput', ['y', 'x', 'w0', 'a'])
@@ -251,11 +254,19 @@ def Rx_data(key, sigWDM, symbWDM, sps, param, paramCh, FO=64e6, lw=100e3):
     paramRx.Plo_dBm = 10         # Local occilator power in dBm
     paramRx.ϕ_lo = 0.0           # initial phase in rad  
 
-    if len(sigWDM.shape) == 3:
-        key_full = jax.random.split(key, sigWDM.shape[0])
-        sigRx, noise = jax.vmap(simpleRx, in_axes=(0,None,None,0,None),out_axes=0)(key_full, FO, param.freqGrid[paramRx.chid], sigWDM, paramRx)
-    else:
-        sigRx, noise = simpleRx(key, FO, param.freqGrid[paramRx.chid], sigWDM, paramRx)
+    if setting == 'simpleRx':
+        if len(sigWDM.shape) == 3:
+            key_full = jax.random.split(key, sigWDM.shape[0])
+            sigRx, noise = jax.vmap(simpleRx, in_axes=(0,None,None,0,None),out_axes=0)(key_full, FO, param.freqGrid[paramRx.chid], sigWDM, paramRx)
+        else:
+            sigRx, noise = simpleRx(key, FO, param.freqGrid[paramRx.chid], sigWDM, paramRx)
+    elif setting=='ideal':
+        if len(sigWDM.shape) == 3:
+            key_full = jax.random.split(key, sigWDM.shape[0])
+            sigRx, noise = jax.vmap(simpleRx, in_axes=(0,None,None,0,None),out_axes=0)(key_full, FO, param.freqGrid[paramRx.chid], sigWDM, paramRx)
+        else:
+            sigRx, noise = simpleRx(key, FO, param.freqGrid[paramRx.chid], sigWDM, paramRx)
+
     data_sml, paramRx = sml_dataset(sigRx, symbWDM, param, paramCh, paramRx)
     return data_sml, paramRx, noise
 
@@ -263,7 +274,6 @@ def Rx_data(key, sigWDM, symbWDM, sps, param, paramCh, FO=64e6, lw=100e3):
 
 
 
-from collections import namedtuple
 DataInput = namedtuple('DataInput', ['y', 'x', 'w0', 'a'])
 
 def get_data(path,sps=2, batch=False, opposite_sign=False):

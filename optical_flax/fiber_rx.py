@@ -2,10 +2,12 @@ import numpy as np
 import jax.numpy as jnp
 import jax
 import scipy.constants as const
-from optical_flax.fiber_tx import local_oscillator
-from optical_flax.operator import firFilter
 from collections import namedtuple
 from jax.numpy.fft import fft, ifft, fftfreq
+
+from optical_flax.fiber_tx import local_oscillator
+from optical_flax.operator import firFilter, circFilter
+from optical_flax.core import MySignal, get_omega
 
 DataInput = namedtuple('DataInput', ['y', 'x', 'w0', 'a'])
 
@@ -133,7 +135,7 @@ def simpleRx(key, FO, freq, sigWDM, paramRx):
     sigRx1 = jax.vmap(coherentReceiver, in_axes=(-1,None), out_axes=-1)(sigWDM, sigLO)
     ## step 2: match filtering  
     sigRx2 = sigWDM * 0    
-    sigRx2 = jax.vmap(firFilter, in_axes=(None, -1), out_axes=-1)(paramRx.pulse, sigRx1)    
+    sigRx2 = jax.vmap(circFilter, in_axes=(None, -1), out_axes=-1)(paramRx.pulse, sigRx1)    
 
 
     ## step 3: resampling # TODO: 可以优化！
@@ -156,10 +158,10 @@ def sml_dataset(sigRx, symbTx_, param, paramCh, paramRx):
     a = {'baudrate': param.Rs,
     'channelindex': paramRx.chid,
     'channels': param.Nch,
-    'distance': paramCh.Ltotal * 1e3,
+    'distance': paramCh.Ltotal * 1e3,    #【m】
     'lpdbm': param.Pch_dBm,    # [dBm]
     'lpw': 10**(param.Pch_dBm/10)*1e-3, # [W]
-    'modformat': '16QAM',
+    'modformat': f'{param.M}QAM',
     'polmux': 1,
     'samplerate': param.Rs * paramRx.sps,
     'spans': int(paramCh.Ltotal / paramCh.Lspan),
@@ -170,7 +172,8 @@ def sml_dataset(sigRx, symbTx_, param, paramCh, paramRx):
     'gamma': paramCh.gamma * 1e-3,    # [1/W/m]
     'sps': paramRx.sps, 
     'M': param.M,
-    'CD': 18.451}
+    'CD': 18.451,
+    'freqspace': param.freqSpac}
 
     if symbTx_.ndim == 4:
         symbTx = symbTx_[:,:,paramRx.chid]
@@ -184,5 +187,27 @@ def sml_dataset(sigRx, symbTx_, param, paramCh, paramRx):
     return data_train_sml, paramRx
 
 
+
+def rx(E: MySignal, chid:int, new_sps:int) -> MySignal:
+    ''' 
+    Get single channel information from WDM signal.
+    Input:
+        E: 1D array. WDM signal. (Nfft,Nmodes)  or  (Nfft, Nch, Nmodes)
+        k: channel id.  [0,1,2,...,Nch-1]
+        new_sps
+    Output:
+        E0: single channel signal. (Nfft,Nmodes)
+    '''
+    assert E.sps % new_sps == 0
+    k = chid - E.Nch // 2
+    Nfft = E.val.shape[0]
+    Fs = E.Fs
+    freqspace = E.freqspace
+    t = jnp.linspace(0,1/Fs*Nfft, Nfft)
+    omega = get_omega(E.Fs, Nfft)
+    f = omega/(2*np.pi)
+    x0 = ifft(jnp.roll(fft(E.val, axis=0) * (jnp.abs(f - k*freqspace)<freqspace/2)[:,None], -k*int(freqspace/Fs*Nfft), axis=0), axis=0)
+    rate = E.sps // new_sps
+    return MySignal(val=x0[::rate,:], sps=new_sps, Fs=E.Fs/rate, Nch=E.Nch, freqspace=E.freqspace)
 
 

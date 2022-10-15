@@ -3,20 +3,23 @@ import jax.numpy as jnp
 import jax.random as random
 import numpy as np
 import flax.linen as nn
+from jax.lax import stop_gradient 
 from functools import partial, wraps
 from typing import Any, NamedTuple,Callable, Iterable, Optional, Tuple, Union,Sequence
 from collections import namedtuple
 from flax.core import freeze, unfreeze,lift
+import sys
+sys.path.append('/home/xiaoxinyu/optic')
+
+
 from commplax.module.core import SigTime, Signal, zeros, conv1d_t, vmap,wpartial,delta,gauss
 from commplax import xop, xcomm
 from commplax import adaptive_filter as af
 from commplax.module import core
 from commplax import cxopt
 
-import sys
-sys.path.append('/home/xiaoxinyu/optic')
 
-from optical_flax.functions import crelu, ctanh, csigmoid
+from optical_flax.functions import crelu, ctanh, csigmoid,cleaky_relu
 from optical_flax.initializers import near_zeros, ones
 from optical_flax.utils import nn_vmap_x, nn_vmap_signal, normal_init
 
@@ -79,7 +82,6 @@ class mimoconv1d(nn.Module):
 class mimoaf(nn.Module):
     taps:int=32
     rtap:Any=None
-    dims:int=2
     sps:int=2
     train: Any=False
     mimofn: Any=af.ddlms
@@ -95,14 +97,16 @@ class mimoaf(nn.Module):
     @nn.compact
     def __call__(self,signal):
         x, t = signal
-        t = self.variable('const', 't', conv1d_t, t, self.taps, self.rtap, 2, 'valid').value
+        t = self.variable('const', 't', conv1d_t, t, self.taps, self.rtap, self.sps, 'valid').value
+
+        dims = x.shape[-1]
 
         # x [M, taps, 2], M = N-15
         x = xop.frame(x, self.taps, self.sps)  
         mimo_init, mimo_update, mimo_apply = self.mimofn(train=self.train, **self.mimokwargs)
 
 
-        state = self.variable('af_state', 'mimoaf', lambda *_: (0, mimo_init(dims=self.dims, taps=self.taps, **self.mimoinitargs)), ())
+        state = self.variable('af_state', 'mimoaf', lambda *_: (0, mimo_init(dims=dims, taps=self.taps,mimoinit='centralspike', **self.mimoinitargs)), ())
         truth_var = self.variable('aux_inputs', 'truth',lambda *_: None, ())
         truth = truth_var.value
         if truth is not None:
@@ -119,6 +123,7 @@ class mimoaf(nn.Module):
         # y: [M,2]
         y = mimo_apply(af_weights, x) # 所有的 symbol 都过了之后才运用filter
         state.value = (af_step, af_stats)
+
         return Signal(y, t)
 
 
@@ -136,7 +141,7 @@ class mimofoeaf(nn.Module):
     @nn.compact
     def __call__(self,signal):
         sps = 2
-        dims = 2
+        dims = signal.val.shape[-1]
         tx = signal.t  # signal.val:[1090,2]   t:(450,-450,2)
         # MIMO
         ## slisig: [1030, 2], (480,-480,2)
@@ -197,6 +202,7 @@ class fdbp(nn.Module):
     n_init:Callable=gauss
     conv1d:Callable=conv1d
     mimoconv1d:Callable=mimoconv1d
+    nonlinear_layer:bool=True
 
     @nn.compact
     def __call__(self,signal):
@@ -205,11 +211,33 @@ class fdbp(nn.Module):
 
         for i in range(self.steps):
             x, td = dconv()(Signal(x, t))
-            c, t = mimoconv1d(taps=self.ntaps,kernel_init=self.n_init)(Signal(jnp.abs(x)**2, td))
-            x = jnp.exp(1j * c) * x[t.start - td.start: t.stop - td.stop + x.shape[0]]
+            if self.nonlinear_layer == True:
+                c, t = mimoconv1d(taps=self.ntaps,kernel_init=self.n_init,dims=x.shape[-1])(Signal(jnp.abs(x)**2, td))
+                x = jnp.exp(1j * c) * x[t.start - td.start: t.stop - td.stop + x.shape[0]]
+            else:
+                t = td
         return Signal(x, t)
 
 
+class Id(nn.Module):
+
+    
+    @nn.compact
+    def __call__(self,signal):
+        x, t = signal
+        t = self.variable('const', 't', conv1d_t, t, 2, None, 2, 'valid').value
+        state = self.variable('af_state', 'mimoaf', jnp.ones, (1,))
+        truth_var = self.variable('aux_inputs', 'truth',lambda *_: None, ())
+        truth = truth_var.value
+        if truth is not None:
+            # truth: [M, 2]
+            truth = truth[t.start: truth.shape[0] + t.stop]
+
+        # theta = self.param('final_theta', zeros, (1,))
+        theta = 0
+        y = x[0::2,:] * jnp.exp(1j*theta)
+        
+        return Signal(y, t)
 
 
 ## compose model
@@ -226,10 +254,12 @@ class DSP_Model(nn.Module):
     dtaps: int = 261
     ntaps: int = 41
     rtaps: int = 61
+    mimotaps: int=30
     init_fn: tuple = (core.delta, core.gauss)
     w0: Any = 0.0
     mode: str = 'train'
     GDBP: Callable = fdbp
+    nonlinear_layer: bool=True
 
     def setup(self):
         d_init,n_init = self.init_fn
@@ -248,35 +278,56 @@ class DSP_Model(nn.Module):
                 dtaps=self.dtaps,
                 ntaps=self.ntaps,
                 d_init=d_init,
-                n_init=n_init)
+                n_init=n_init,
+                nonlinear_layer=self.nonlinear_layer)
         self.BPN = BPN(name='BPN',mode=self.mode)
-        self.FOEAF = mimofoeaf(name='FOEAF',
-                            w0=self.w0,
-                            train=mimo_train,
-                            preslicer=core.conv1d_slicer(self.rtaps),
-                            foekwargs={})
+        # self.FOEAF = mimofoeaf(name='FOEAF',
+        #                     w0=self.w0,
+        #                     train=mimo_train,
+        #                     preslicer=core.conv1d_slicer(self.rtaps),
+        #                     foekwargs={})
         self.RConv = nn_vmap_signal(conv1d)(name='RConv', taps=self.rtaps) # vectorize column-wise Conv1D
-        self.MIMOAF = mimoaf(name='MIMOAF',train=mimo_train)     # adaptive MIMO layer
+        # self.MIMOAF = mimoaf(taps=self.mimotaps, name='MIMOAF',train=mimo_train)     # adaptive MIMO layer
+        self.MIMOAF = Id()     # Id MIMO layer
         
             
     def __call__(self, signal):
-        x0 = signal
-        x1 = self.DBP(x0)
-        x2 = self.BPN(x1)
-        x3 = self.FOEAF(x2)
-        x4 = self.RConv(x3)
-        x5 = self.MIMOAF(x4)
+        x_list = []
+        # orignal signal
+        x = signal
+        x_list.append(x)
+
+        # DBP module
+        x = self.DBP(x)
+        x_list.append(x)
+
+        # BPN module
+        x = self.BPN(x)
+        x_list.append(x)
+
+        # # FOE module
+        # x = self.FOEAF(x)
+        # x_list.append(x)
+
+        # Rconv module
+        x = self.RConv(x)
+        x_list.append(x)
+
+        # MIMO module
+        x = self.MIMOAF(x)
+        x_list.append(x)
+
         if self.mode=='train':
-            return x5
+            return x
         else:
-            return x0, x1, x2, x3, x4, x5
+            return x_list
 
 
 ################################################ Meta-SSFM module ################################################
 fft = jnp.fft.fft
 ifft = jnp.fft.ifft
 
-from optical_flax.functions import cleaky_relu
+
 
 
 class Dense_net(nn.Module):
@@ -329,6 +380,7 @@ class MetaSSFM(nn.Module):
     discard:int=450
     Meta_H: Callable = partial(Dense_net, width=(5,5))
     Meta_xi: Callable = partial(Dense_net, width=(5,5), dtype=jnp.float32, param_dtype=jnp.float32)
+    nonlinear_layer: bool=True
 
 
     def setup(self):
@@ -355,6 +407,7 @@ class NNSSFM(nn.Module):
     dtaps: int=1024
     ntaps: int=1
     discard:int=450
+    nonlinear_layer: bool=True
     
 
     @nn.compact
@@ -505,7 +558,7 @@ class GRU_NL(nn.Module):
         return Signal(x,t)
 
 
-from jax.lax import stop_gradient 
+
 
 class GRU_DBP(nn.Module):
     steps:int=3

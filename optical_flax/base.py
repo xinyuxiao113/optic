@@ -1,7 +1,5 @@
-import jax
-import jax.random as random
-import jax.numpy as jnp
-import flax.linen as nn
+import jax, jax.random as random, jax.numpy as jnp, flax.linen as nn
+import numpy as np,flax,optax, matplotlib.pyplot as plt
 from collections import namedtuple
 from typing import Any, NamedTuple,Callable, Iterable, Optional, Tuple, Union,Sequence
 from functools import partial
@@ -17,6 +15,16 @@ from jax import device_get, device_put
 from optical_flax.initializers import fdbp_init
 from optical_flax.layers import DSP_Model
 from optical_flax.utils import realize
+from optical_flax.dsp import time_recovery_vmap
+from optical_flax.operator import frame, frame_gen
+
+
+## commplax 导入
+from gdbp import data as gdat
+from commplax import comm
+from commplax import op
+
+
 
 Optimizer = Any
 
@@ -28,7 +36,10 @@ def model_init(data,
         init_len:int=8000, 
         name='GDBP',
         sparams_flatkeys = [('FDBP',)],
-        steps=3,xi=1.1, domain='time',mode='train',
+        steps=3,
+        xi=1.1,
+        domain='time',
+        mode='train',
         **kwargs):
     '''
     Init a model
@@ -48,14 +59,17 @@ def model_init(data,
         z0 = z0[-1]
     ol = z0.t.start - z0.t.stop
     sparams, params = util.dict_split(v0['params'],sparams_flatkeys)
-    state = {'af_state':v0['af_state'], 'norm': v0['norm']}
+    
+    if 'af_state' in v0:
+        state = {'af_state':v0['af_state'], 'norm': v0['norm']}
+    else:
+        state = { 'norm': v0['norm']}
     aux = v0['aux_inputs']
     const = v0['const']
 
     return Model(model, (params, state, aux, const, sparams), ol, name)
 
 
-import flax
 Array = Any
 Dict = Union[dict, flax.core.FrozenDict]
 
@@ -95,19 +109,19 @@ def loss_fn(module: nn.Module,
     return loss, updated_state
 
 
-import optax
+
 TrainState = namedtuple('TrainState', ['params','opt_state','state'])
 
 @partial(jax.jit, static_argnums=(0,1,-1))
 def update_state(net, tx, train_state, y, x, aux, const, sparams, renew_state=True):
     aux = core.dict_replace(aux, {'truth': x})  # 将真实的x输入
     (loss, new_state), grads =jax.value_and_grad(loss_fn, argnums=1, has_aux=True)(net, train_state.params, train_state.state, y, x, aux, const, sparams)
-    updates, opt_state = tx.update(grads, train_state.opt_state)
+    updates, opt_state = tx.update(grads, train_state.opt_state, train_state.params)
     params = optax.apply_updates(train_state.params, updates)
     train_state = TrainState(params=params, opt_state=opt_state, state=new_state)
     return loss, train_state
 
-from gdbp import data as gdat
+
 
 
 def train(model: Model,
@@ -133,8 +147,7 @@ def train(model: Model,
     train_state = TrainState(params=params, opt_state=opt_state, state=state)
 
     ## data loader
-    n_batch, batch_gen = get_train_batch(data, batch_size, model.overlaps)
-    n_iter = n_batch if n_iter is None else min(n_iter, n_batch)
+    n_batch, batch_gen = get_train_batch(data, batch_size, model.overlaps,niter=n_iter)
 
     ## training
     for i, (y, x) in tqdm(enumerate(batch_gen),total=n_iter, desc='training', leave=False):
@@ -143,10 +156,11 @@ def train(model: Model,
         ## 代入数据 x (把字典中每个 truth 都替换为 x)
         aux = core.dict_replace(aux, {'truth': x}) 
         loss, train_state= update_state(model.module, tx, train_state, y, x, aux, const, sparams, renew_state)
-        yield device_get(loss), train_state
+        if i % 100 == 0:
+            yield device_get(loss), train_state
+        
 
 
-from commplax import comm
 def test(model: Model,
          params: Dict,
          data: gdat.Input,
@@ -177,7 +191,8 @@ def test(model: Model,
                    **state
                }, core.Signal(data.y), mutable={'af_state','norm'})
     z = res[-1]
-    metric = metric_fn(z.val,
+    final = z.val / jnp.sqrt(jnp.mean(jnp.abs(z.val)**2))
+    metric = metric_fn(final,
                        data.x[z.t.start:z.t.stop],
                        scale=jnp.sqrt(10),
                        eval_range=eval_range)
@@ -247,11 +262,12 @@ def run_result(generator):
     return list(zip(*list(generator)))
 
 
-from commplax import op
+
 def get_train_batch(ds: gdat.Input,
                     batchsize: int,
                     overlaps: int,
-                    sps: int = 2):
+                    sps: int = 2,
+                    niter:int=400):
     ''' generate overlapped batch input for training
 
         Args:
@@ -267,18 +283,17 @@ def get_train_batch(ds: gdat.Input,
 
     flen = batchsize + overlaps # 用 995 个符号来预测 中间 500 个符号
     fstep = batchsize 
-    ds_y = op.frame_gen(ds.y, flen * sps, fstep * sps) # 接受信号y的采样率 x2
-    ds_x = op.frame_gen(ds.x, flen, fstep)
-    n_batches = op.frame_shape(ds.x.shape, flen, fstep)[0] # 查看batch的个数
-    return n_batches, zip(ds_y, ds_x)
+    ds_y = frame_gen(ds.y, flen * sps, fstep * sps, niter) # 接受信号y的采样率 x2
+    ds_x = frame_gen(ds.x, flen, fstep, niter)
+    nbatchs = 1 + (ds.x.shape[0] - flen) // fstep   #
+    return nbatchs, zip(ds_y, ds_x)
 
-import matplotlib.pyplot as plt
-from optical_flax.dsp import time_recovery_vmap
+
 
 def show_symb(sig, symb, name, idx1, idx2, size=10, fig_size=(15,4), time_recovery = True):
 
     ## constellation
-    symb_set = set(symb[:,0])
+    symb_set = np.unique(symb[:,0])
 
     sig_ = sig.val[::sig.t.sps][idx1]
     symb_ = symb[sig.t.start//sig.t.sps: symb.shape[0] + sig.t.stop//sig.t.sps][idx1]
@@ -313,11 +328,10 @@ def show_symb(sig, symb, name, idx1, idx2, size=10, fig_size=(15,4), time_recove
 
 
 
-import numpy as np
 def show_fig(sig_list, symb, name, idx1=None,idx2=None,point_size=10, fig_size=(15,4)):
-    if idx1 == None:
+    if id(idx1) == id(None):
         idx1 = np.arange(symb.shape[0]//3, symb.shape[0]//3 + 10000)
-    if idx2 == None:
+    if id(idx2) == id(None):
         idx2 = np.arange(symb.shape[0]//3, symb.shape[0]//3 + 600)
     
     for i in range(len(sig_list)):

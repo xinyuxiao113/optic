@@ -1,10 +1,12 @@
 import numpy as np
 import jax.numpy as jnp
 import jax
+from sympy.combinatorics.graycode import GrayCode
 from commpy.modulation import QAMModem
-from optical_flax.operator import circFilter, frame
 from commpy.filters import rrcosfilter, rcosfilter
 from functools import partial
+
+from optical_flax.operator import circFilter, frame
 
 def mzm(Ai, Vπ, u, Vb):
     """
@@ -96,7 +98,7 @@ class QAM(object):
         constellation = np.tile(np.hstack((pam, pam[::-1])), int(num_symb_pam) // 2) * 1j + pam.repeat(num_symb_pam)
         if reorder_as_gray:
             m = np.log2(self.M)
-            from sympy.combinatorics.graycode import GrayCode
+            
             gray_code_sequence = GrayCode(m).generate_gray()
             gray_code_sequence_array = np.fromiter((int(g, 2) for g in gray_code_sequence), int, len(constellation))
             self.constellation = jnp.array(constellation)[gray_code_sequence_array.argsort()]

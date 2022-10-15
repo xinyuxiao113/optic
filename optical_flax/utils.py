@@ -1,19 +1,18 @@
-import jax
-import jax.numpy as jnp
+import jax, jax.numpy as jnp, jax.random as random, flax.linen as nn
 from jax import device_put, device_get
-import jax.random as random
-import flax.linen as nn
 from functools import partial, wraps
 from typing import Any, NamedTuple
 from flax.core import freeze, unfreeze
-from commplax.module.core import Signal
+import matplotlib.pyplot as plt
+import os, sys, time
+import numpy as np
 
-class parameters:
-    """
-    Basic class to be used as a struct of parameters
-    """
-    pass
 
+# commplax 导入
+from commplax import comm
+
+# optical_flax
+from optical_flax.core import Signal
 
 def normal_init(key,shape, dtype = jnp.float32):
     k1,k2 = random.split(key)
@@ -113,34 +112,7 @@ def MSE(y,y1):
 
 
 
-def conv_circ( signal, ker ):
-    '''
-        signal: real 1D array
-        ker: real 1D array
-        signal and ker must have same shape
-    '''
-    return jnp.fft.ifft( jnp.fft.fft(signal)*jnp.fft.fft(ker) )
 
-def corr_circ(x, y):  # 不交换
-    '''
-    x: fixed
-    z[n] = x[i] y[i - n] = x[i + n]y[i]
-    '''
-    return conv_circ(x, jnp.roll(jnp.flip(y),1))
-
-
-def auto_rho(x,y):
-    '''
-        计算循环 相关系数
-    '''
-    N = len(x)
-    Ex = jnp.mean(x)
-    Ey = jnp.mean(y)
-    Vx = jnp.var(x)
-    Vy = jnp.var(y)
-    return (corr_circ(x,y)/N - Ex*Ey)/jnp.sqrt(Vx*Vy)
-
-import time
 def calc_time(f):
     
     @wraps(f)
@@ -154,8 +126,6 @@ def calc_time(f):
 
 
 
-import os, sys
-
 class HiddenPrints:
     def __enter__(self):
         self._original_stdout = sys.stdout
@@ -164,3 +134,22 @@ class HiddenPrints:
     def __exit__(self, exc_type, exc_val, exc_tb):
         sys.stdout.close()
         sys.stdout = self._original_stdout
+
+
+def make_init(f):
+    @wraps(f)
+    def _f(key, *args, **kwargs):
+        return f(*args, **kwargs)
+
+
+def show_symb(sig,symb,s=10):
+    symb_set = set(symb)
+    for sym in symb_set:
+        z = sig[symb == sym]
+        plt.scatter(z.real, z.imag, s=s)
+
+
+def BER(y, truth):
+    return comm.qamqot(y, jax.device_get(truth), scale=np.sqrt(10))['BER']['dim0']
+
+    

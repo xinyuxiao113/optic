@@ -1,67 +1,26 @@
-import numpy as np
-import jax.numpy as jnp
-from commpy.filters import rrcosfilter, rcosfilter
-from commpy.utilities  import signal_power, upsample
+import jax, numpy as np, jax.numpy as jnp
 from scipy.stats.kde import gaussian_kde
 import scipy.constants as const
-from optical_flax.fiber_rx import linFiberCh
 import matplotlib.pyplot as plt
-from jax.numpy.fft import fft, ifft, fftfreq, fftshift
 from tqdm import tqdm
 from numba import njit
+import jax
+from scipy import signal
+from jax import device_get
+
+from commpy.filters import rrcosfilter, rcosfilter
+from commpy.utilities  import signal_power, upsample
 from commpy.modulation import QAMModem
 
-
+from commplax.xop import convolve
 from commplax import equalizer as eq 
 from commplax import comm
-from optical_flax.utils import auto_rho
-import jax
-from commplax.xop import convolve
+from commplax.module import core
 
+from optical_flax.fiber_rx import linFiberCh
+from optical_flax.core import parameters
+from optical_flax.operator import fft, ifft, fftfreq, fftshift, auto_rho
 
-def firFilter(h, x):
-    """
-    Implements FIR filtering and compensates filter delay
-    (assuming the impulse response is symmetric)
-    
-    :param h: impulse response (symmetric)
-    :param x: input signal 
-    :return y: output filtered signal    
-    """   
-    N = h.size
-    x = jnp.pad(x, (0, int(N/2)),'constant')
-    #y = lfilter(h,1,x)
-    y = convolve(h,x)[0:x.size]
-    
-    return y[int(N/2):y.size]
-
-def pulseShape(pulseType, SpS=2, N=1024, alpha=0.1, Ts=1):
-    """
-    Generate pulse shaping filters
-    
-    :param pulseType: 'rect','nrz','rrc'
-    :param SpS: samples per symbol
-    :param N: number of filter coefficients
-    :param alpha: RRC rolloff factor
-    :param Ts: symbol period
-    
-    :return filterCoeffs: normalized filter coefficients   
-    """  
-    fa = (1/Ts)*SpS
-    
-    t = np.linspace(-2, 2, SpS)
-    Te = 1       
-    
-    if pulseType == 'rect':
-        filterCoeffs = np.concatenate((np.zeros(int(SpS/2)), np.ones(SpS), np.zeros(int(SpS/2))))       
-    elif pulseType == 'nrz':
-        filterCoeffs = np.convolve(np.ones(SpS), 2/(np.sqrt(np.pi)*Te)*np.exp(-t**2/Te), mode='full')        
-    elif pulseType == 'rrc':
-        tindex, filterCoeffs = rrcosfilter(N, alpha, Ts, fa)
-    elif pulseType == 'rc':
-        tindex, filterCoeffs = rcosfilter(N, alpha, Ts, fa)
-        
-    return filterCoeffs/np.sqrt(np.sum(filterCoeffs**2))
 
 
 def eyediagram(sig, Nsamples, SpS, n=3, ptype='fast', plotlabel=None):
@@ -181,30 +140,35 @@ def edc(Ei, L, D, Fc, Fs):
 
 def cpr(Ei, N, constSymb, symbTx):    
     """
-    Carrier phase recovery (CPR)
+    Carrier phase recovery (CPR) for single mode.
     
     """    
+    nModes = Ei.shape[1]
     ϕ  = np.zeros(Ei.shape)    
     θ  = np.zeros(Ei.shape)
     
-    for k in range(0,len(Ei)):
-        
-        predict = Ei[k]*np.exp(1j*θ[k-1])
-        decided = np.argmin(np.abs(predict - constSymb)) # find closest constellation symbol
-        
-        if k % 50 == 0:
-            ϕ[k] = np.angle(symbTx[k]/predict) + θ[k-1] # phase estimation with pilot symbol
-        else:
-            ϕ[k] = np.angle(constSymb[decided]/predict) + θ[k-1] # phase estimation after symbol decision
-                
-        if k > N:
-            θ[k]  = np.mean(ϕ[k-N:k]) # moving average filter
-        else:           
-            θ[k] = np.angle(symbTx[k]/predict) + θ[k-1]
+    for i in range(nModes):
+        for k in range(0,len(Ei)):
             
+            predict = Ei[k,i]*np.exp(1j*θ[k-1,i])
+            decided = np.argmin(np.abs(predict - constSymb)) # find closest constellation symbol
+            
+            if k % 50 == 0:
+                ϕ[k,i] = np.angle(symbTx[k,i]/predict) + θ[k-1,i] # phase estimation with pilot symbol
+            else:
+                ϕ[k,i] = np.angle(constSymb[decided]/predict) + θ[k-1,i] # phase estimation after symbol decision
+                    
+            if k > N:
+                θ[k,i]  = np.mean(ϕ[k-N:k+1,i]) # moving average filter
+            else:           
+                θ[k,i] = np.angle(symbTx[k,i]/predict) + θ[k-1,i]
+                
+    
     Eo = Ei*np.exp(1j*θ) # compensate phase rotation
         
-    return Eo, ϕ, θ
+    return Eo, θ
+
+
 
 def fourthPowerFOE(Ei, Ts, plotSpec=False):
     """
@@ -378,7 +342,7 @@ def cpr2(Ei, symbTx=[], paramCPR=[]):
     return Eo, θ
 
 
-@njit
+
 def bps(Ei, N, constSymb, B):
     """
     Blind phase search (BPS) algorithm
@@ -403,7 +367,7 @@ def bps(Ei, N, constSymb, B):
 
     nModes = Ei.shape[1]
 
-    ϕ_test = np.arange(0, B) * (np.pi / 2) / B  # test phases
+    ϕ_test = np.arange(0, B) * (np.pi / 2) / B - np.pi/4  # test phases
 
     θ = np.zeros(Ei.shape, dtype="float")
 
@@ -428,10 +392,11 @@ def bps(Ei, N, constSymb, B):
                 indRot = np.argmin(sumDmin)
                 θ[k - 2 * N, n] = ϕ_test[indRot]
             dmin = np.roll(dmin, -1)
-    return θ
+    θ = np.unwrap(θ, axis=0, period=np.pi/2) 
+    return Ei*jnp.exp(1j*θ), θ
 
 
-def ddpll(Ei, Ts, Kv, tau1, tau2, constSymb, symbTx, pilotInd):
+def ddpll(Ei, Kv, constSymb, symbTx, Ts=1/36e9, tau1=1/1e6, tau2=1/1e6, pilotInd=np.arange(200,dtype=int)):
     """
     Decision-directed Phase-locked Loop (DDPLL) algorithm
 
@@ -498,20 +463,24 @@ def ddpll(Ei, Ts, Kv, tau1, tau2, constSymb, symbTx, pilotInd):
             if k in pilotInd:
                 # phase estimation with pilot symbol
                 # Generate phase error signal (also called x_n (Meyer))
-                u[2] = np.imag(Eo * np.conj(symbTx[k, n]))
+                u[2] = np.imag(Eo * np.conj(symbTx[k, n])) 
+                # u[2] = np.imag(Eo * np.conj(symbTx[k, n])) * np.real(Eo * np.conj(symbTx[k, n]))
             else:
                 # find closest constellation symbol
                 decided = np.argmin(np.abs(Eo - constSymb))
                 # Generate phase error signal (also called x_n (Meyer))
-                u[2] = np.imag(Eo * np.conj(constSymb[decided]))
+                u[2] = np.imag(Eo * np.conj(constSymb[decided])) 
+                # u[2] = np.imag(Eo * np.conj(constSymb[decided])) * np.real(Eo * np.conj(constSymb[decided]))
             # Pass phase error signal in Loop Filter (also called e_n (Meyer))
             u[0] = np.sum(a1b * u)
 
             # Estimate the phase error for the next symbol
             θ[k + 1, n] = θ[k, n] - Kv * u[0]
-    return θ
+    
+    θ = np.unwrap(θ, axis=0, period=np.pi/2) 
+    return Ei*jnp.exp(1j*θ), θ
 
-import jax.numpy as jnp
+
 def simple_cpr(sigRx, symbTx, discard=100):
     '''
     sigRx: [N,2] have done!
@@ -557,10 +526,7 @@ def test_result(sigRx7, symbTx, mod, discard=100, show_name='Your method'):
     plt.plot(symbTx.real,symbTx.imag,'k.', markersize=4, label='Tx')
     return SNR, BER, err
 
-from scipy import signal
-from optical_flax.utils import parameters
-from commplax.module import core
-from jax import device_get
+
 def simple_dsp(data, eval_range=(30000, -20000), metric_fn=comm.qamqot):
     '''
     ## 结果不好的原因可能是重抽样的方式不恰当 ！！！ 应当如何进行重抽样 ？？
@@ -631,7 +597,7 @@ def mimo_dsp(data, eval_range=(30000, -20000), metric_fn=comm.qamqot):
     y.append(time_recovery_vmap(y[2], x)[0])
     y.append(eq.qamfoe(y[3])[0])
     y.append(eq.ekfcpr(y[4])[0])
-    y.append( simple_cpr(y[5], x) )
+    y.append(simple_cpr(y[5], x) )
 
     sig_list = []
     sig_list.append(core.Signal(y[0],core.SigTime(0,0,2)))

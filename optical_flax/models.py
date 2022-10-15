@@ -1,15 +1,17 @@
 from typing import Callable, Any, Optional
-
 from flax import linen as nn
 from flax import struct
 import jax.numpy as jnp
 import jax
 import numpy as np
+from functools import partial
 
 from optical_flax.attention import SelfAttention
 from optical_flax.functions import cleaky_relu
 from optical_flax.initializers import zeros, near_zeros
-from functools import partial
+from optical_flax.operator import frame
+
+
 c_act = cleaky_relu
 r_act = jax.nn.leaky_relu
 def act(x):
@@ -211,7 +213,7 @@ class CNN(nn.Module):
         return x + bias[:,None]
 
 
-from commplax.xop import frame
+
 
 def embed(inputs,k, sps,mode='wrap'):
   '''

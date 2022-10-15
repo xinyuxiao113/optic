@@ -1,74 +1,25 @@
-## 测试进度条
-from copyreg import pickle
-from optical_flax.fiber_system import Tx_data, channel, Rx_data
-import jax
-import jax.random as rd
+import jax, jax.numpy as jnp, matplotlib.pyplot as plt, jax.random as rd,numpy as np
+from optical_flax.dsp import cpr, bps
+from optical_flax.fiber_tx import QAM
+from optical_flax.fiber_system import Tx_data
+from optical_flax.utils import show_symb
 import os
-import pickle
+os.environ['XLA_PYTHON_CLIENT_MEM_FRACTION']='.30'
+from jax.config import config
+config.update("jax_enable_x64", True)
 
 
-N = [19]
-SpS = 32
-Power = [-6, -3, 0, 3, 6, 9]    # train
-# Power = [-10, -5, 0, 5, 10]   # test
-Nbits = 400000
-data_path = '/home/xiaoxinyu/data/0531train'
+## Step 1: data
+M = 16
+mod = QAM(M)
+constSymb = mod.constellation / jnp.sqrt(mod.Es)
+sigWDM, symbWDM, param = Tx_data(rd.PRNGKey(0), 1, Nmodes=1, Power=0,Nch=3, SpS=32, Nbits=int(np.log2(M))*4000, Rs=190e9, freq_space=220e9, M=M)
+truth = jax.device_get(symbWDM[:,0,:])
+n1 = rd.normal(rd.PRNGKey(0), truth.shape, dtype=jnp.float64)*0.05
+n2 = rd.normal(rd.PRNGKey(1), truth.shape, dtype=jnp.complex128)*0.1
+pn = jnp.cumsum(n1, axis=0)
+y = truth * jnp.exp(1j*pn) + n2
 
-batch = 10
-dz = 0.5
-rx_sps = 8
-FO = 0    
-lw = 0
-
-key_tx = rd.split(rd.PRNGKey(5217), len(N))
-key_ch = rd.split(rd.PRNGKey(5318), len(N))
-key_rx = rd.split(rd.PRNGKey(5419), len(N))
-
-
-if not os.path.exists(data_path):
-    os.mkdir(data_path)
-
-for i in range(len(N)):
-    n = N[i]
-    for j in range(len(Power)):
-        power = Power[j]
-        print(f'     channel {n}  Power {power}      ')
-
-        ## Step 1: Tx
-        tx_path= data_path + f'/Tx_ch{n}_power{power}'
-        if os.path.exists(tx_path):
-            print('Tx data has been generated before !')
-            with open(tx_path, 'rb') as file:
-                sigWDM, symbWDM, param = pickle.load(file)
-        else:
-            sigWDM, symbWDM, param = Tx_data(key_tx[i], batch, Nch=N[i], Power=power, SpS=SpS, Nbits=Nbits)
-            with open(tx_path, 'wb') as file:
-                pickle.dump((sigWDM, symbWDM, param), file)
-
-
-        ## Step 2: channel
-        channel_path = data_path + f'/Channel_ch{n}_power{power}'
-        if os.path.exists(channel_path):
-            print('channel data has been generated before !')
-            with open(channel_path, 'rb') as file:
-                sigWDM_rx, paramCh= pickle.load(file)
-        else:
-            Fs = param.Rs*param.SpS  # sample rates
-            sigWDM_rx, paramCh = channel(key_ch[i], sigWDM, Fs, dz=dz)
-            with open(channel_path, 'wb') as file:
-                pickle.dump((sigWDM_rx, paramCh), file)
-        
-
-        ## Step 3:
-        rx_path = data_path + f'/dataset/data_ch{n}_power{power}_FO{FO}_lw{lw}'
-        if os.path.exists(rx_path):
-            print('Rx data has been generated before !')
-        else:
-            data_sml, paramRx, noise = Rx_data(key_rx[i], sigWDM_rx, symbWDM, rx_sps, param=param, paramCh=paramCh, FO=FO, lw=lw)
-            with open(rx_path, 'wb') as file:
-                pickle.dump((data_sml, paramRx, noise), file)
-        jax.profiler.save_device_memory_profile(f"memory{j}.prof")
-        
-        
-
-        
+## Step 2: Adaptive filter
+## BPS
+Eo, theta = bps(jax.device_get(y),5, jax.device_get(constSymb), 101)
