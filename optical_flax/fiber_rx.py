@@ -5,8 +5,8 @@ import scipy.constants as const
 from collections import namedtuple
 from jax.numpy.fft import fft, ifft, fftfreq
 
-from optical_flax.fiber_tx import local_oscillator
-from optical_flax.operator import firFilter, circFilter
+from optical_flax.fiber_tx import local_oscillator, phaseNoise
+from optical_flax.operator import firFilter, circFilter, L2
 from optical_flax.core import MySignal, get_omega
 
 DataInput = namedtuple('DataInput', ['y', 'x', 'w0', 'a'])
@@ -46,8 +46,7 @@ def hybrid_2x4_90deg(E1, E2):
                   [ 1j/2,  1/2, -1j/2, -1/2],
                   [-1/2,  1j/2, -1/2,  1j/2]])
     
-    Ei = jnp.array([E1, jnp.zeros((E1.size,)), 
-                   jnp.zeros((E1.size,)), E2])    
+    Ei = jnp.array([E1, jnp.zeros((E1.size,)), jnp.zeros((E1.size,)), E2])    # [4, N]
     
     Eo = T@Ei
     
@@ -131,17 +130,55 @@ def simpleRx(key, FO, freq, sigWDM, paramRx):
 
     sigLO, ϕ_pn_lo = local_oscillator(key, FO, freq, N, paramRx)
 
+    ## step 0: WDM split
+
+
     ## step 1: coherent receiver
     sigRx1 = jax.vmap(coherentReceiver, in_axes=(-1,None), out_axes=-1)(sigWDM, sigLO)
-    ## step 2: match filtering  
-    sigRx2 = sigWDM * 0    
-    sigRx2 = jax.vmap(circFilter, in_axes=(None, -1), out_axes=-1)(paramRx.pulse, sigRx1)    
 
+    ## step 2: match filtering  
+    # sigRx2 = jax.vmap(circFilter, in_axes=(None, -1), out_axes=-1)(paramRx.pulse, sigRx1)  
+    # down_sample_rate = paramRx.tx_sps // paramRx.sps
+    # sigRx2 = sigRx2[::down_sample_rate, :]
+
+    E = MySignal(val=sigRx1, Fs=1/paramRx.Ta, sps=paramRx.tx_sps, Nch=paramRx.Nch, freqspace=paramRx.freqspace)  
+    sigRx2 = rx(E, paramRx.chid, paramRx.sps).val
 
     ## step 3: resampling # TODO: 可以优化！
-    down_sample_rate = paramRx.tx_sps // paramRx.sps
-    sigRx3 = sigRx2[::down_sample_rate, :]
-    return sigRx3, ϕ_pn_lo
+    sigRx = sigRx2/L2(sigRx2)
+    return sigRx, ϕ_pn_lo
+
+
+def idealRx(key, E, chid, rx_sps, FO=0, lw=0, R=1, Plo=10):
+    '''
+    Input:
+        key: rng for rx noise.
+        E: WDM signal.  E.val [N, Nmodes]
+        chid: channel id from [0,1,2,...,Nch-1].
+        rx_sps: output sps.
+        FO: float. frequency offset. [Hz]
+        lw: linewidth of LO.  
+    Output:
+        sigRx: [Nsymb * rx_sps, pmodes]
+        phi_pn: [Nsamples] noise.
+
+    '''
+    N = E.val.shape[0]
+
+    # sigLO, ϕ_pn_lo = local_oscillator(key, FO, freq, N, paramRx)
+
+    ## step 0: WDM split
+    E1 = rx(E, chid, rx_sps)  
+
+    ## step 1: phase noise
+    N1 = E1.val.shape[0]
+    t  = jnp.arange(0, N1) * 1 / E1.Fs
+    phi = 2*np.pi*FO*t +  phaseNoise(key, lw, N1, 1/E1.Fs)
+    y = R*jnp.exp(Plo) * E1.val * jnp.exp(-1j*phi[:,None]) 
+    y = y / L2(y)
+    return y, phi
+
+
 
 def sml_dataset(sigRx, symbTx_, param, paramCh, paramRx):
     '''
@@ -183,7 +220,8 @@ def sml_dataset(sigRx, symbTx_, param, paramCh, paramRx):
         raise(ValueError)
 
     # FO这里取了负号，get_data就不用了
-    data_train_sml = DataInput(sigRx, symbTx, - 2 * np.pi * paramRx.FO / param.Rs, a)
+    w0 = - 2 * np.pi * paramRx.FO / param.Rs  # phase rotation each symbol.
+    data_train_sml = DataInput(sigRx, symbTx,w0, a)
     return data_train_sml, paramRx
 
 
@@ -192,7 +230,7 @@ def rx(E: MySignal, chid:int, new_sps:int) -> MySignal:
     ''' 
     Get single channel information from WDM signal.
     Input:
-        E: 1D array. WDM signal. (Nfft,Nmodes)  or  (Nfft, Nch, Nmodes)
+        E: 1D array. WDM signal. (Nfft,Nmodes)
         k: channel id.  [0,1,2,...,Nch-1]
         new_sps
     Output:

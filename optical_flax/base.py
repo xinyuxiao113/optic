@@ -56,14 +56,16 @@ def model_init(data,
     key = random.PRNGKey(0)
     z0,v0 = model.init_with_output(key,y0)
     if mode=='test':
-        z0 = z0[-1]
+        z0 = z0['final layer']
     ol = z0.t.start - z0.t.stop
     sparams, params = util.dict_split(v0['params'],sparams_flatkeys)
     
+    state = {}
     if 'af_state' in v0:
-        state = {'af_state':v0['af_state'], 'norm': v0['norm']}
-    else:
-        state = { 'norm': v0['norm']}
+        state['af_state'] = v0['af_state']
+    if 'norm' in v0:
+        state['norm'] = v0['norm']
+    
     aux = v0['aux_inputs']
     const = v0['const']
 
@@ -121,8 +123,7 @@ def update_state(net, tx, train_state, y, x, aux, const, sparams, renew_state=Tr
     train_state = TrainState(params=params, opt_state=opt_state, state=new_state)
     return loss, train_state
 
-
-
+from flax.core.frozen_dict import freeze,unfreeze
 
 def train(model: Model,
           data: gdat.Input,
@@ -190,14 +191,15 @@ def test(model: Model,
                    'const': const,
                    **state
                }, core.Signal(data.y), mutable={'af_state','norm'})
-    z = res[-1]
+    z = res['final layer']
     final = z.val / jnp.sqrt(jnp.mean(jnp.abs(z.val)**2))
-    metric = metric_fn(final,
+    l = jnp.mean(jnp.abs(z.val - data.x[z.t.start:z.t.stop])**2)
+    metric = metric_fn(z.val,
                        data.x[z.t.start:z.t.stop],
                        scale=jnp.sqrt(10),
                        eval_range=eval_range)
-    return metric, res
-
+    return metric, res, l  # metric, result, test loss
+ 
 
 def test_meta(model: Model,
          params: Dict,

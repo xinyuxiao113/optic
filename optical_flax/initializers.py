@@ -81,7 +81,8 @@ def fdbp_init(a: dict,
             domain=domain,
             ignore_beta3=True)
 
-        return xi * n0[0, 0, 0] * core.gauss(key, shape, dtype)
+        # return xi * n0[0, 0, 0] * core.gauss(key, shape, dtype)
+        return xi * n0[0, 0, 0] * core.delta(key, shape, dtype)
 
     return d_init, n_init
 

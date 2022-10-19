@@ -342,7 +342,7 @@ def cpr2(Ei, symbTx=[], paramCPR=[]):
     return Eo, θ
 
 
-
+@njit
 def bps(Ei, N, constSymb, B):
     """
     Blind phase search (BPS) algorithm
@@ -395,7 +395,7 @@ def bps(Ei, N, constSymb, B):
     θ = np.unwrap(θ, axis=0, period=np.pi/2) 
     return Ei*jnp.exp(1j*θ), θ
 
-
+@njit
 def ddpll(Ei, Kv, constSymb, symbTx, Ts=1/36e9, tau1=1/1e6, tau2=1/1e6, pilotInd=np.arange(200,dtype=int)):
     """
     Decision-directed Phase-locked Loop (DDPLL) algorithm

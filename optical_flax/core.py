@@ -24,8 +24,6 @@ class MySignal:
     sps: int=struct.field(pytree_node=False)        # samples per symbol
     Nch: int=struct.field(pytree_node=False)        # number of channels
     freqspace: float=struct.field(pytree_node=False)# frequency space
-    start:int = struct.field(pytree_node=False)     # start index
-    stop: int = struct.field(pytree_node=False)     # stop index
 
     def __add__(self,other):
         return  MySignal(val=self.val + other.val, sps=self.sps, Fs=self.Fs, Nch=self.Nch, freqspace=self.freqspace)

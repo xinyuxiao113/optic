@@ -7,7 +7,7 @@
 #SBATCH --mem=40G          # 申请10G内存
 #SBATCH --gres=gpu:1       # 申请 gpu 数
 #SBATCH -N 1               # 申请节点数,一般为1
-#SBATCH -t 2-00:00:00       # 申请Job运行时长0小时5分钟0秒,若要申请超过一天时间,如申请1天,书写格式为#SBATCH -t 1-00:00:00
+#SBATCH -t 10:00:00       # 申请Job运行时长0小时5分钟0秒,若要申请超过一天时间,如申请1天,书写格式为#SBATCH -t 1-00:00:00
 
 # 上述 SBATCH 参数不指定时均有系统指定的默认值
 
@@ -22,32 +22,23 @@ module add anaconda           # 载入 anaconda 模块
 source ~/.bashrc
 conda activate commplax
 
-python test.py --steps 1 --power 6.0
-python test.py --steps 1 --power 3.0
-python test.py --steps 1 --power 0.0
-python test.py --steps 1 --power -3.0
 
-python test.py --steps 2 --power 6.0
-python test.py --steps 2 --power 3.0
-python test.py --steps 2 --power 0.0
-python test.py --steps 2 --power -3.0
+python test.py --steps 7 --power 6.0
+python test.py --steps 7 --power 3.0
+python test.py --steps 7 --power 0.0
+python test.py --steps 7 --power -3.0
 
-python test.py --steps 3 --power 6.0
-python test.py --steps 3 --power 3.0
-python test.py --steps 3 --power 0.0
-python test.py --steps 3 --power -3.0
+python test.py --steps 8 --power 6.0
+python test.py --steps 8 --power 3.0
+python test.py --steps 8 --power 0.0
+python test.py --steps 8 --power -3.0
 
-python test.py --steps 4 --power 6.0
-python test.py --steps 4 --power 3.0
-python test.py --steps 4 --power 0.0
-python test.py --steps 4 --power -3.0
+python test.py --steps 10 --power 6.0
+python test.py --steps 10 --power 3.0
+python test.py --steps 10 --power 0.0
+python test.py --steps 10 --power -3.0
 
-python test.py --steps 5 --power 6.0
-python test.py --steps 5 --power 3.0
-python test.py --steps 5 --power 0.0
-python test.py --steps 5 --power -3.0
-
-python test.py --steps 6 --power 6.0
-python test.py --steps 6 --power 3.0
-python test.py --steps 6 --power 0.0
-python test.py --steps 6 --power -3.0
+python test.py --steps 20 --power 6.0
+python test.py --steps 20 --power 3.0
+python test.py --steps 20 --power 0.0
+python test.py --steps 20 --power -3.0

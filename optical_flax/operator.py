@@ -6,6 +6,13 @@ from jax.numpy.fft import fft,fftfreq,fftshift
 from commplax.xop import convolve
 
 
+def L2(x):
+    '''
+    [sqrt(W)]
+    '''
+    return jnp.sqrt(jnp.mean(jnp.abs(x)**2))
+
+
 def P(x):
     '''
     Mirror operator. Use for ifft

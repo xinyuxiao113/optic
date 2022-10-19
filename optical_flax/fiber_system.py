@@ -6,7 +6,7 @@ from commpy.modulation import QAMModem
 
 from optical_flax.fiber_channel import manakov_ssf
 from optical_flax.fiber_tx import simpleWDMTx, pulseShape, wdm_base
-from optical_flax.fiber_rx import simpleRx, sml_dataset
+from optical_flax.fiber_rx import simpleRx, idealRx, sml_dataset
 from optical_flax.utils import calc_time
 from optical_flax.core import parameters
 from collections import namedtuple
@@ -250,9 +250,10 @@ def Rx_data(key, sigWDM, symbWDM, sps, param, paramCh, FO=64e6, lw=100e3, settin
     paramRx.freq = param.freqGrid[paramRx.chid]
     paramRx.Ta = 1/(param.SpS*param.Rs)    # 发射信号的样本时间
     paramRx.Fa = paramRx.Rs * paramRx.sps  # 接收机处的 采样率
-
     paramRx.Plo_dBm = 10         # Local occilator power in dBm
     paramRx.ϕ_lo = 0.0           # initial phase in rad  
+    paramRx.freqspace = param.freqSpac
+    paramRx.Nch = param.Nch
 
     if setting == 'simpleRx':
         if len(sigWDM.shape) == 3:
@@ -261,11 +262,14 @@ def Rx_data(key, sigWDM, symbWDM, sps, param, paramCh, FO=64e6, lw=100e3, settin
         else:
             sigRx, noise = simpleRx(key, FO, param.freqGrid[paramRx.chid], sigWDM, paramRx)
     elif setting=='ideal':
+        E = MySignal(val=sigWDM, sps=param.SpS, Fs=param.Rs*param.SpS, Nch=param.Nch, freqspace=param.freqSpac)
         if len(sigWDM.shape) == 3:
             key_full = jax.random.split(key, sigWDM.shape[0])
-            sigRx, noise = jax.vmap(simpleRx, in_axes=(0,None,None,0,None),out_axes=0)(key_full, FO, param.freqGrid[paramRx.chid], sigWDM, paramRx)
+            sigRx, noise = jax.vmap(idealRx, in_axes=(0,0,None,None,None),out_axes=0)(key_full, E, paramRx.chid, paramRx.sps, FO, lw)
         else:
-            sigRx, noise = simpleRx(key, FO, param.freqGrid[paramRx.chid], sigWDM, paramRx)
+            sigRx, noise = idealRx(key, E, paramRx.chid, paramRx.sps, FO, lw)
+    else:
+        raise(ValueError)
 
     data_sml, paramRx = sml_dataset(sigRx, symbWDM, param, paramCh, paramRx)
     return data_sml, paramRx, noise

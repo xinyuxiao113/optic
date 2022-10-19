@@ -55,7 +55,7 @@ class conv1d(nn.Module):
     def __call__(self,signal):
         x,t = signal
         t = self.variable('const', 't', conv1d_t, t, self.taps, self.rtap, 1, self.mode).value
-        h = self.param('kernel', self.kernel_init, (self.taps,), jnp.complex64)
+        h = self.param('dispersion_kernel', self.kernel_init, (self.taps,), jnp.complex64)
         x = self.conv_fn(x, h, mode=self.mode)
 
         return Signal(x, t)
@@ -73,7 +73,7 @@ class mimoconv1d(nn.Module):
     def __call__(self, signal):
         x, t = signal
         t = self.variable('const', 't', conv1d_t, t, self.taps, self.rtap, 1, self.mode).value
-        h = self.param('kernel', self.kernel_init, (self.taps, self.dims, self.dims), jnp.float32)
+        h = self.param('nonlinear_kernel', self.kernel_init, (self.taps, self.dims, self.dims), jnp.float32)
         y = xcomm.mimoconv(x, h, mode=self.mode, conv=self.conv_fn)
         return Signal(y, t)
 
@@ -211,9 +211,13 @@ class fdbp(nn.Module):
 
         for i in range(self.steps):
             x, td = dconv()(Signal(x, t))
+            # c, t = mimoconv1d(taps=self.ntaps,kernel_init=self.n_init,dims=x.shape[-1])(Signal(jnp.abs(x)**2, td))
+            # x = x[t.start - td.start: t.stop - td.stop + x.shape[0]]
             if self.nonlinear_layer == True:
                 c, t = mimoconv1d(taps=self.ntaps,kernel_init=self.n_init,dims=x.shape[-1])(Signal(jnp.abs(x)**2, td))
-                x = jnp.exp(1j * c) * x[t.start - td.start: t.stop - td.stop + x.shape[0]]
+                bias = self.param(f'n_bias_{i}', zeros, (1,))
+                x = jnp.exp(1j * (c+bias)) * x[t.start - td.start: t.stop - td.stop + x.shape[0]]
+                # x = x[t.start - td.start: t.stop - td.stop + x.shape[0]]
             else:
                 t = td
         return Signal(x, t)
@@ -233,12 +237,20 @@ class Id(nn.Module):
             # truth: [M, 2]
             truth = truth[t.start: truth.shape[0] + t.stop]
 
-        # theta = self.param('final_theta', zeros, (1,))
+        # theta = self.param('final_theta', lambda *_:jnp.array([1.0]), (1,))
         theta = 0
         y = x[0::2,:] * jnp.exp(1j*theta)
         
         return Signal(y, t)
 
+
+class IdBPN(nn.Module):
+
+    @nn.compact
+    def __call__(self, signal):
+        x,t = signal
+
+        return Signal(x,t)
 
 ## compose model
 class Sequential(nn.Module):
@@ -280,43 +292,28 @@ class DSP_Model(nn.Module):
                 d_init=d_init,
                 n_init=n_init,
                 nonlinear_layer=self.nonlinear_layer)
-        self.BPN = BPN(name='BPN',mode=self.mode)
-        # self.FOEAF = mimofoeaf(name='FOEAF',
-        #                     w0=self.w0,
-        #                     train=mimo_train,
-        #                     preslicer=core.conv1d_slicer(self.rtaps),
-        #                     foekwargs={})
+        # self.BPN = BPN(name='BPN',mode=self.mode)
+        self.BPN = IdBPN(name='BPN')
+        self.FOEAF = mimofoeaf(name='FOEAF',
+                            w0=self.w0,
+                            train=mimo_train,
+                            preslicer=core.conv1d_slicer(self.rtaps),
+                            foekwargs={})
         self.RConv = nn_vmap_signal(conv1d)(name='RConv', taps=self.rtaps) # vectorize column-wise Conv1D
         # self.MIMOAF = mimoaf(taps=self.mimotaps, name='MIMOAF',train=mimo_train)     # adaptive MIMO layer
-        self.MIMOAF = Id()     # Id MIMO layer
+        self.MIMOAF = Id(name='final layer')     # Id MIMO layer
         
+        self.layers = [self.DBP, self.BPN, self.MIMOAF]
             
     def __call__(self, signal):
-        x_list = []
-        # orignal signal
+        x_list = {}
         x = signal
-        x_list.append(x)
+        x_list['input'] = x
 
-        # DBP module
-        x = self.DBP(x)
-        x_list.append(x)
-
-        # BPN module
-        x = self.BPN(x)
-        x_list.append(x)
-
-        # # FOE module
-        # x = self.FOEAF(x)
-        # x_list.append(x)
-
-        # Rconv module
-        x = self.RConv(x)
-        x_list.append(x)
-
-        # MIMO module
-        x = self.MIMOAF(x)
-        x_list.append(x)
-
+        for m in self.layers:
+            x = m(x)
+            x_list[m.name] = x
+        
         if self.mode=='train':
             return x
         else:

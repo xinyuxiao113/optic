@@ -14,6 +14,13 @@ from commplax import comm
 # optical_flax
 from optical_flax.core import Signal
 
+
+class parameters:
+    """
+    Basic class to be used as a struct of parameters
+    """
+    pass
+
 def normal_init(key,shape, dtype = jnp.float32):
     k1,k2 = random.split(key)
     x = random.normal(k1,shape)  + 1j * random.normal(k2,shape)
